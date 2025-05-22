@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  coverImage  String?
+  published   Boolean  @default(false)
+  featured    Boolean  @default(false)
+  tags        String[]
+  seoTitle    String?
+  seoDescription String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+  
+  // Social media syndication tracking
+  syndicatedTo String[] // Platforms where this was shared
+  socialMediaPosts SocialMediaPost[]
+  
+  @@map("blog_posts")
+}
+
+model ContactSubmission {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  projectType String?
+  message     String
+  status      String   @default("new") // new, read, responded, archived
+  createdAt   DateTime @default(now())
+  
+  @@map("contact_submissions")
+}
+
+model SocialMediaPost {
+  id          String   @id @default(cuid())
+  platform    String   // twitter, linkedin, instagram
+  postId      String   // External platform post ID
+  content     String
+  url         String?
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+  
+  // Optional association with blog post
+  blogPostId  String?
+  blogPost    BlogPost? @relation(fields: [blogPostId], references: [id])
+  
+  @@map("social_media_posts")
+}
+
+model ProjectShowcase {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  longDescription String?
+  technologies String[]
+  liveUrl     String?
+  githubUrl   String?
+  imageUrl    String?
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("project_showcase")
+}
+
+model SiteSettings {
+  id          String   @id @default("site_settings")
+  batSignal   String   // The main "bat signal" message
+  about       String?
+  socialLinks Json?    // {twitter: "", linkedin: "", github: "", etc}
+  contactEmail String?
+  resumeUrl   String?
+  updatedAt   DateTime @updatedAt
+  
+  @@map("site_settings")
+}

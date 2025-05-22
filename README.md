@@ -1,36 +1,268 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Will McLemore - Personal Branding Website
 
-## Getting Started
+A modern, professional personal branding website built with Next.js 14, TypeScript, Tailwind CSS, and deployed on Railway. Features a clean design, responsive layout, and powerful content management capabilities.
 
-First, run the development server:
+## 🚀 Features
+
+### Core Functionality
+- **5-Page Architecture**: Home, About, Projects, Blog, Contact
+- **"Bat Signal" System**: Prominent availability messaging on homepage
+- **Contact Management**: Professional contact form with spam protection
+- **Project Showcase**: Portfolio display with detailed case studies
+- **Blog System**: Content management with social media integration
+- **Responsive Design**: Mobile-first approach with modern UI/UX
+
+### Technical Features
+- **Next.js 14** with App Router for optimal performance
+- **TypeScript** for type safety and better development experience
+- **Tailwind CSS** with custom design system and dark mode support
+- **Prisma ORM** with PostgreSQL for robust data management
+- **Railway Deployment** with health checks and monitoring
+- **SEO Optimized** with sitemap generation and metadata management
+
+### Advanced Capabilities
+- **Social Media Integration**: Ready for Twitter, LinkedIn, GitHub, Instagram
+- **Blog Auto-Syndication**: Framework for cross-platform content sharing
+- **Analytics Integration**: Google Analytics and Vercel Analytics support
+- **Contact Form Processing**: Validation, spam detection, and email notifications
+- **Theme System**: Light/dark mode with system preference detection
+
+## 🛠 Technology Stack
+
+- **Frontend**: Next.js 14, React 19, TypeScript
+- **Styling**: Tailwind CSS, Headless UI, Lucide React Icons
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL (Railway hosted)
+- **Deployment**: Railway with Docker containerization
+- **Analytics**: Vercel Analytics, Google Analytics (configurable)
+- **Form Handling**: React Hook Form with Zod validation
+
+## 📋 Prerequisites
+
+- Node.js 18.0.0 or higher
+- PostgreSQL database (local or hosted)
+- Railway account for deployment
+- Environment variables configured
+
+## 🚀 Quick Start
+
+### 1. Clone and Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd willmclemore.com
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Environment Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy the example environment file and configure your variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp env.example .env
+```
 
-## Learn More
+Configure the following environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/willmclemore_db?schema=public"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Site Configuration
+SITE_URL="https://willmclemore.com"
+SITE_NAME="Will McLemore"
+CONTACT_EMAIL="will@willmclemore.com"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Social Media APIs (optional)
+TWITTER_API_KEY=""
+LINKEDIN_CLIENT_ID=""
+GITHUB_TOKEN=""
 
-## Deploy on Vercel
+# Analytics (optional)
+GOOGLE_ANALYTICS_ID=""
+VERCEL_ANALYTICS_ID=""
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Email Configuration (optional)
+SMTP_HOST=""
+SMTP_PORT=""
+SMTP_USER=""
+SMTP_PASS=""
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Database Setup
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Push database schema (for development)
+npx prisma db push
+
+# Or run migrations (for production)
+npx prisma migrate deploy
+```
+
+### 4. Development
+
+```bash
+# Start development server
+npm run dev
+
+# Open browser to http://localhost:3000
+```
+
+### 5. Build and Test
+
+```bash
+# Type check
+npm run type-check
+
+# Build for production
+npm run build
+
+# Start production server
+npm run start
+```
+
+## 🚀 Railway Deployment
+
+### 1. Database Setup
+
+1. Create a PostgreSQL database on Railway
+2. Copy the database URL to your environment variables
+3. Run database migrations:
+
+```bash
+npx prisma migrate deploy
+```
+
+### 2. Deploy Application
+
+1. Connect your GitHub repository to Railway
+2. Configure environment variables in Railway dashboard
+3. Deploy will happen automatically on push to main branch
+
+### 3. Custom Domain
+
+1. Add your custom domain in Railway dashboard
+2. Update DNS records to point to Railway
+3. SSL certificates are automatically provisioned
+
+### 4. Health Monitoring
+
+The application includes a health check endpoint at `/api/health` that Railway uses for monitoring.
+
+## 📊 Analytics Setup
+
+### Google Analytics 4
+
+1. Create a GA4 property
+2. Add your Measurement ID to `GOOGLE_ANALYTICS_ID`
+3. Analytics will be automatically initialized
+
+### Vercel Analytics
+
+1. Enable Vercel Analytics in your project
+2. Add your Analytics ID to `VERCEL_ANALYTICS_ID`
+
+## 📧 Contact Form Configuration
+
+The contact form includes:
+
+- **Validation**: Client and server-side validation with Zod
+- **Spam Protection**: Keyword filtering and rate limiting
+- **Database Storage**: All submissions stored in PostgreSQL
+- **Email Notifications**: Ready for integration with email services
+
+To enable email notifications, configure SMTP settings and implement email sending in `/api/contact/route.ts`.
+
+## 🎨 Customization
+
+### Design System
+
+The design system is built with Tailwind CSS and includes:
+
+- **Color Palette**: Primary, secondary, and accent colors
+- **Typography**: Inter font with proper hierarchy
+- **Components**: Reusable UI components with consistent styling
+- **Dark Mode**: Automatic system preference detection
+
+### Content Management
+
+Update content by modifying:
+
+- **Constants**: `/src/lib/constants.ts` for site-wide settings
+- **Homepage Content**: `/src/app/page.tsx` for hero and bat signal
+- **About Content**: `/src/app/about/page.tsx` for bio and expertise
+- **Projects**: Add to database or modify placeholder data
+
+## 🔧 Development Guidelines
+
+### Code Organization
+
+```
+src/
+├── app/                 # Next.js App Router pages
+├── components/          # Reusable React components
+├── lib/                # Utility functions and configurations
+├── types/              # TypeScript type definitions
+└── styles/             # Global styles and Tailwind config
+```
+
+### Best Practices
+
+- **TypeScript**: Use strict typing for all components and functions
+- **Responsive Design**: Mobile-first approach with breakpoint testing
+- **Performance**: Optimize images, lazy load content, minimize bundle size
+- **SEO**: Proper meta tags, structured data, and sitemap generation
+- **Accessibility**: WCAG 2.1 AA compliance with proper ARIA labels
+
+## 📈 Performance Optimization
+
+### Core Web Vitals
+
+- **LCP**: Optimized with Next.js Image component and font loading
+- **FID**: Minimal JavaScript with efficient event handling
+- **CLS**: Proper image dimensions and layout stability
+
+### SEO Features
+
+- **Meta Tags**: Dynamic generation for all pages
+- **Open Graph**: Social media sharing optimization
+- **Sitemap**: Automatically generated with proper priorities
+- **Robots.txt**: Search engine crawling configuration
+
+## 🔒 Security
+
+### Implementation
+
+- **Input Validation**: All forms validated with Zod schemas
+- **Rate Limiting**: API endpoints protected against abuse
+- **Spam Protection**: Multiple layers of spam detection
+- **Headers**: Security headers configured in Next.js config
+
+## 📚 Additional Resources
+
+### Documentation
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Railway Documentation](https://docs.railway.app)
+
+### Support
+
+For questions or issues:
+
+1. Check the documentation above
+2. Review the codebase comments
+3. Create an issue in the repository
+4. Contact the development team
+
+## 📝 License
+
+This project is proprietary software. All rights reserved.
+
+---
+
+**Built with ❤️ using Next.js, TypeScript, and modern web technologies.**
