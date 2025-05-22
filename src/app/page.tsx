@@ -6,13 +6,13 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="section bg-gradient-to-br from-primary/10 via-background to-accent/10">
+      <section className="section bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800">
         <div className="container">
           <div className="mx-auto max-w-4xl text-center space-y-8">
             {/* Bat Signal */}
-            <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-6 py-2 text-sm">
+            <div className="inline-flex items-center rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 px-6 py-2 text-sm">
               <span className="mr-2">🦇</span>
-              <span className="font-medium text-primary">Available Now</span>
+              <span className="font-medium text-blue-600 dark:text-blue-400">Available Now</span>
             </div>
 
             {/* Main Heading */}
@@ -22,12 +22,12 @@ export default function HomePage() {
             </h1>
 
             {/* Bat Signal Message */}
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto text-balance">
+            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto text-balance">
               {BAT_SIGNAL_DEFAULT}
             </p>
 
             {/* Brief Introduction */}
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               I help organizations navigate complex technical challenges, scale effectively, 
               and build high-performing teams. With deep expertise in technology leadership 
               and strategic innovation, I'm here to turn ambitious visions into reality.
@@ -54,7 +54,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <Mail className="mr-2 h-4 w-4" />
                 {SITE_CONFIG.email}
@@ -63,7 +63,7 @@ export default function HomePage() {
                 href="https://cal.com/willmclemore"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <Calendar className="mr-2 h-4 w-4" />
                 Schedule a Call
@@ -85,7 +85,7 @@ export default function HomePage() {
               <div className="card">
                 <div className="card-content">
                   <h3 className="font-semibold mb-3">Technical Leadership</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Architecting scalable systems, leading engineering teams, 
                     and driving technical strategy for growing organizations.
                   </p>
@@ -95,7 +95,7 @@ export default function HomePage() {
               <div className="card">
                 <div className="card-content">
                   <h3 className="font-semibold mb-3">Startup Advisory</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Product strategy, technical due diligence, and growth guidance 
                     for early-stage and scaling startups.
                   </p>
@@ -105,7 +105,7 @@ export default function HomePage() {
               <div className="card">
                 <div className="card-content">
                   <h3 className="font-semibold mb-3">Innovation Catalyst</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Speaking engagements, workshop facilitation, and thought leadership 
                     in emerging technologies and industry trends.
                   </p>
@@ -117,13 +117,13 @@ export default function HomePage() {
       </section>
 
       {/* Social Proof / Latest Updates */}
-      <section className="section-sm bg-secondary/30">
+      <section className="section-sm bg-slate-50 dark:bg-slate-800/50">
         <div className="container">
           <div className="mx-auto max-w-4xl text-center space-y-8">
             <h2 className="text-3xl md:text-4xl font-bold">
               Stay Connected
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-slate-600 dark:text-slate-400">
               Follow my latest thoughts on technology, leadership, and innovation
             </p>
             

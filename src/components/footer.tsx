@@ -29,7 +29,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="border-t border-border bg-background">
+    <footer className="border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
       <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand & Description */}
@@ -37,7 +37,7 @@ export function Footer() {
             <Link href="/" className="text-xl font-bold gradient-text">
               {SITE_CONFIG.name}
             </Link>
-            <p className="text-sm text-muted-foreground max-w-xs">
+            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-xs">
               Technology leader, strategic consultant, and innovation catalyst. 
               Available for complex challenges and growth opportunities.
             </p>
@@ -50,7 +50,7 @@ export function Footer() {
               <li>
                 <Link 
                   href="/about" 
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   About
                 </Link>
@@ -58,7 +58,7 @@ export function Footer() {
               <li>
                 <Link 
                   href="/projects" 
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   Projects
                 </Link>
@@ -66,7 +66,7 @@ export function Footer() {
               <li>
                 <Link 
                   href="/blog" 
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   Blog
                 </Link>
@@ -74,7 +74,7 @@ export function Footer() {
               <li>
                 <Link 
                   href="/contact" 
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   Contact
                 </Link>
@@ -94,7 +94,7 @@ export function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                     aria-label={link.name}
                   >
                     <Icon className="h-5 w-5" />
@@ -103,16 +103,16 @@ export function Footer() {
               })}
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="h-5 w-5" />
               </a>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               <a 
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="hover:text-primary transition-colors"
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 {SITE_CONFIG.email}
               </a>
@@ -121,11 +121,11 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             © {currentYear} {SITE_CONFIG.name}. All rights reserved.
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             Built with Next.js, deployed on Railway
           </p>
         </div>

@@ -157,7 +157,7 @@ export function ContactForm() {
         {errors.message && (
           <p className="text-sm text-red-600 dark:text-red-400">{errors.message.message}</p>
         )}
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-slate-600 dark:text-slate-400">
           Please include relevant details about your timeline, budget, and specific needs.
         </p>
       </div>
@@ -185,14 +185,14 @@ export function ContactForm() {
           )}
         </button>
         
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-slate-600 dark:text-slate-400">
           Typically respond within 24 hours
         </p>
       </div>
 
       {/* Privacy Note */}
-      <div className="pt-4 border-t border-border">
-        <p className="text-xs text-muted-foreground">
+      <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+        <p className="text-xs text-slate-600 dark:text-slate-400">
           Your information will be kept confidential and used only to respond to your inquiry. 
           I respect your privacy and will never share your details with third parties.
         </p>
