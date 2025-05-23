@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -22,7 +22,7 @@ model BlogPost {
   coverImage  String?
   published   Boolean  @default(false)
   featured    Boolean  @default(false)
-  tags        String[]
+  tags        String?  // Comma-separated tags for SQLite
   seoTitle    String?
   seoDescription String?
   createdAt   DateTime @default(now())
@@ -30,7 +30,7 @@ model BlogPost {
   publishedAt DateTime?
   
   // Social media syndication tracking
-  syndicatedTo String[] // Platforms where this was shared
+  syndicatedTo String? // Comma-separated platforms for SQLite
   socialMediaPosts SocialMediaPost[]
   
   @@map("blog_posts")
@@ -69,7 +69,7 @@ model ProjectShowcase {
   title       String
   description String
   longDescription String?
-  technologies String[]
+  technologies String? // Comma-separated technologies for SQLite
   liveUrl     String?
   githubUrl   String?
   imageUrl    String?
@@ -85,7 +85,7 @@ model SiteSettings {
   id          String   @id @default("site_settings")
   batSignal   String   // The main "bat signal" message
   about       String?
-  socialLinks Json?    // {twitter: "", linkedin: "", github: "", etc}
+  socialLinks String?  // JSON string for SQLite
   contactEmail String?
   resumeUrl   String?
   updatedAt   DateTime @updatedAt
