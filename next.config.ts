@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  // output: 'standalone', // Temporarily disabled
   serverExternalPackages: ['@prisma/client', 'prisma'],
   eslint: {
     // Warning: This allows production builds to successfully complete even if
