@@ -91,38 +91,89 @@ SMTP_PASS=""
 
 ### 3. Database Setup
 
+This project uses **PostgreSQL for both development and production** to ensure environment parity and avoid database-specific issues.
+
+### Local Development Setup
+
+1. **Prerequisites**: Make sure you have Docker installed
+
+2. **Start the local database**:
+   ```bash
+   npm run db:up
+   ```
+
+3. **Create your environment file**:
+   ```bash
+   cp env.example .env.local
+   ```
+
+4. **Update `.env.local` with local development values**:
+   ```bash
+   DATABASE_URL="postgresql://willmclemore:dev_password_123@localhost:5432/willmclemore_dev?schema=public"
+   NEXTAUTH_URL="http://localhost:3000"
+   SITE_URL="http://localhost:3000"
+   ```
+
+5. **Run database migrations**:
+   ```bash
+   npm run db:migrate:dev
+   ```
+
+6. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+
+### Automated Setup
+
+You can also use the automated setup command:
 ```bash
-# Generate Prisma client
-npx prisma generate
-
-# Push database schema (for development)
-npx prisma db push
-
-# Or run migrations (for production)
-npx prisma migrate deploy
+npm run dev:setup
 ```
 
-### 4. Development
+This will:
+- Start PostgreSQL with Docker
+- Wait for the database to be ready
+- Run migrations
+- Start the development server
+
+### Database Management Commands
 
 ```bash
-# Start development server
-npm run dev
+# Start PostgreSQL container
+npm run db:up
 
-# Open browser to http://localhost:3000
+# Stop PostgreSQL container
+npm run db:down
+
+# Reset database (removes all data)
+npm run db:reset
+
+# Run migrations in development
+npm run db:migrate:dev
+
+# Push schema changes without migration
+npm run db:push
+
+# Open Prisma Studio (database GUI)
+npm run db:studio
 ```
 
-### 5. Build and Test
+### Why PostgreSQL Everywhere?
 
-```bash
-# Type check
-npm run type-check
+- **Environment Parity**: Your local environment matches production exactly
+- **No Schema Conflicts**: One `schema.prisma` file works for all environments
+- **Better Testing**: Catch PostgreSQL-specific issues during development
+- **Professional Practice**: Industry standard approach
 
-# Build for production
-npm run build
+### Production Deployment
 
-# Start production server
-npm run start
-```
+Production uses Railway's managed PostgreSQL service. The deployment automatically:
+1. Runs `prisma migrate deploy` to apply schema changes
+2. Generates the Prisma client
+3. Starts the application
+
+Environment variables are managed through Railway's dashboard or CLI.
 
 ## 🚀 Railway Deployment
 
