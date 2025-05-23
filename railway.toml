@@ -8,6 +8,9 @@ restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
 startCommand = "npm run railway:start"
 
+[deploy.domains]
+"willmclemore.com" = { port = 8080 }
+
 [environments.production]
 [environments.production.variables]
 NODE_ENV = "production" 
