@@ -102,12 +102,12 @@ This project uses **PostgreSQL for both development and production** to ensure e
    npm run db:up
    ```
 
-3. **Create your environment file**:
+3. **Configure your environment file**:
    ```bash
-   cp env.example .env.local
+   cp env.example .env
    ```
 
-4. **Update `.env.local` with local development values**:
+4. **Update `.env` with local development values**:
    ```bash
    DATABASE_URL="postgresql://willmclemore:dev_password_123@localhost:5432/willmclemore_dev?schema=public"
    NEXTAUTH_URL="http://localhost:3000"

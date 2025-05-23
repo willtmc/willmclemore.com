@@ -1,202 +1,233 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ExternalLink, Github, Calendar } from 'lucide-react'
+import { ExternalLink, Calendar, MapPin, DollarSign, Users, Bot, Hammer } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Projects',
-  description: 'Explore Will McLemore\'s portfolio of strategic consulting engagements, technical leadership projects, and innovative solutions across various industries.',
+  title: 'Projects & Case Studies - Will McLemore',
+  description: 'Auction case studies, AI automation projects, and business ventures from McLemore Auction Company.',
+  openGraph: {
+    title: 'Projects & Case Studies - Will McLemore',
+    description: 'Auction case studies, AI automation projects, and business ventures.',
+  },
 }
 
-// Placeholder project data - in a real app, this would come from the database
-const projects = [
+const featuredProjects = [
   {
-    id: '1',
-    title: 'Enterprise Digital Transformation',
-    description: 'Led a comprehensive digital transformation initiative for a Fortune 500 company, modernizing their technology stack and scaling their engineering organization.',
-    longDescription: 'Architected and executed a multi-year digital transformation program that included cloud migration, microservices adoption, and team restructuring. Reduced deployment time by 85% and increased development velocity by 3x.',
-    technologies: ['AWS', 'Kubernetes', 'React', 'Node.js', 'Python', 'PostgreSQL'],
-    imageUrl: '/api/placeholder/600/400',
-    featured: true,
-    category: 'Strategic Consulting',
-    year: '2023',
-    outcome: '$2M+ annual cost savings, 3x faster time-to-market'
+    id: 1,
+    title: "Custom Auction CRM & Project Management System",
+    category: "AI Automation",
+    description: "Building a comprehensive CRM and project management platform specifically designed for the auction industry. Automating everything from client intake to post-sale follow-up.",
+    technologies: ["AI Integration", "Custom Database", "Workflow Automation", "Client Portal"],
+    status: "In Development",
+    impact: "Targeting 50% reduction in administrative time",
+    icon: <Bot className="w-6 h-6" />,
+    details: [
+      "Automated client onboarding and documentation",
+      "AI-powered property valuation assistance", 
+      "Integrated marketing and bidder management",
+      "Real-time analytics and reporting dashboard"
+    ]
   },
   {
-    id: '2',
-    title: 'Fintech Startup Advisory',
-    description: 'Strategic technical advisory for a Series A fintech startup, helping them scale from 50k to 2M+ users while maintaining security and compliance.',
-    longDescription: 'Provided ongoing CTO advisory services including architecture reviews, team scaling, and regulatory compliance guidance. Helped navigate SOC 2 certification and PCI compliance.',
-    technologies: ['TypeScript', 'GraphQL', 'Docker', 'MongoDB', 'Redis'],
-    githubUrl: 'https://github.com/example',
-    imageUrl: '/api/placeholder/600/400',
-    featured: true,
-    category: 'Startup Advisory',
-    year: '2023',
-    outcome: '40x user growth, successful Series B raise'
+    id: 2,
+    title: "Multi-Million Dollar Estate Auction Series",
+    category: "Real Estate",
+    description: "Successfully managed a series of high-value estate auctions including residential properties, luxury items, and collectibles across multiple markets.",
+    technologies: ["Estate Valuation", "Multi-Platform Marketing", "Bidder Coordination", "Legal Compliance"],
+    status: "Completed",
+    impact: "$3.2M+ in total sales",
+    icon: <Hammer className="w-6 h-6" />,
+    details: [
+      "Coordinated 12 properties across 3 states",
+      "Managed 200+ registered bidders per auction",
+      "Implemented hybrid online/in-person bidding",
+      "Achieved 98% sale rate with strong premiums"
+    ]
   },
   {
-    id: '3',
-    title: 'AI-Powered Analytics Platform',
-    description: 'Designed and built a machine learning platform that provides real-time insights for e-commerce businesses, processing 100M+ events daily.',
-    longDescription: 'End-to-end platform development including data pipeline architecture, ML model deployment, and real-time dashboard creation. Leveraged modern ML ops practices for continuous model improvement.',
-    technologies: ['Python', 'TensorFlow', 'Apache Kafka', 'BigQuery', 'React'],
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/example',
-    imageUrl: '/api/placeholder/600/400',
-    featured: true,
-    category: 'Technical Leadership',
-    year: '2022',
-    outcome: '25% increase in client conversion rates'
-  },
-  {
-    id: '4',
-    title: 'Healthcare Platform Modernization',
-    description: 'Modernized a legacy healthcare platform to support HIPAA compliance, improve performance, and enable rapid feature development.',
-    longDescription: 'Complete platform overhaul including security hardening, performance optimization, and modern development practices. Implemented comprehensive testing and CI/CD pipelines.',
-    technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Terraform', 'Jenkins'],
-    imageUrl: '/api/placeholder/600/400',
-    featured: false,
-    category: 'Strategic Consulting',
-    year: '2022',
-    outcome: 'HIPAA compliance achieved, 60% performance improvement'
-  },
-  {
-    id: '5',
-    title: 'Open Source Developer Tools',
-    description: 'Created and maintain several open source tools that help developers build better software faster, with 10k+ GitHub stars.',
-    longDescription: 'Developed a suite of developer productivity tools including CLI utilities, VS Code extensions, and automation frameworks. Active maintainer with growing community.',
-    technologies: ['TypeScript', 'Node.js', 'Go', 'Rust', 'WebAssembly'],
-    githubUrl: 'https://github.com/example',
-    imageUrl: '/api/placeholder/600/400',
-    featured: false,
-    category: 'Open Source',
-    year: '2021-Present',
-    outcome: '10k+ stars, 500+ contributors'
-  },
-  {
-    id: '6',
-    title: 'Innovation Workshop Series',
-    description: 'Designed and facilitated innovation workshops for enterprise clients, helping them identify opportunities and build internal innovation capabilities.',
-    longDescription: 'Created a methodology for innovation discovery and validation, delivered workshops to 500+ executives and engineers across multiple Fortune 500 companies.',
-    technologies: ['Design Thinking', 'Lean Startup', 'Agile', 'User Research'],
-    imageUrl: '/api/placeholder/600/400',
-    featured: false,
-    category: 'Speaking & Workshops',
-    year: '2021-2023',
-    outcome: '20+ workshops, 500+ participants trained'
+    id: 3,
+    title: "Strategic Partnership Program",
+    category: "Business Development", 
+    description: "Developing partnership framework to expand auction capacity and geographic reach through joint ventures with qualified auction managers.",
+    technologies: ["Partnership Framework", "Training Systems", "Quality Standards", "Revenue Sharing"],
+    status: "Active Expansion",
+    impact: "6 current managers, targeting 12",
+    icon: <Users className="w-6 h-6" />,
+    details: [
+      "Standardized training and certification program",
+      "Joint venture legal framework development",
+      "Quality control and brand standards",
+      "Technology platform sharing and support"
+    ]
   }
 ]
 
-const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))]
+const additionalProjects = [
+  {
+    title: "Commercial Real Estate Liquidation",
+    description: "Multi-property commercial auction for distressed portfolio",
+    category: "Real Estate",
+    value: "$1.8M",
+    status: "Completed"
+  },
+  {
+    title: "Heavy Equipment Auction Consulting",
+    description: "Advisory work for construction company equipment liquidation",
+    category: "Consulting", 
+    value: "$850K",
+    status: "Completed"
+  },
+  {
+    title: "AI Bidder Behavior Analysis",
+    description: "Machine learning project to predict bidding patterns",
+    category: "AI Research",
+    value: "Internal",
+    status: "In Development"
+  },
+  {
+    title: "Estate Planning Workshop Series",
+    description: "Educational seminars for estate planning professionals",
+    category: "Speaking",
+    value: "Community",
+    status: "Ongoing"
+  },
+  {
+    title: "Auction Industry Podcast Appearances",
+    description: "Regular appearances discussing AI automation in auctions",
+    category: "Thought Leadership",
+    value: "Industry",
+    status: "Ongoing"
+  },
+  {
+    title: "Art Auction Market Analysis",
+    description: "Consulting project leveraging Sotheby's experience",
+    category: "Art Advisory",
+    value: "Confidential",
+    status: "Completed"
+  }
+]
 
 export default function ProjectsPage() {
-  const featuredProjects = projects.filter(p => p.featured)
-  const otherProjects = projects.filter(p => !p.featured)
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="section bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <section className="section">
         <div className="container">
-          <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              Projects & <span className="gradient-text">Case Studies</span>
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+              Projects & Case Studies
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A selection of strategic consulting engagements, technical leadership projects, 
-              and innovative solutions that drive measurable business outcomes.
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8">
+              From multi-million dollar auctions to AI automation projects - here's how we're 
+              building the future of the auction industry.
             </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <span className="px-4 py-2 bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 rounded-full">
+                🏠 Real Estate Auctions
+              </span>
+              <span className="px-4 py-2 bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300 rounded-full">
+                🤖 AI Automation
+              </span>
+              <span className="px-4 py-2 bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300 rounded-full">
+                🤝 Strategic Partnerships
+              </span>
+              <span className="px-4 py-2 bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300 rounded-full">
+                💼 Consulting Work
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="section">
+      <section className="section-sm">
         <div className="container">
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center space-y-4 mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold">Featured Work</h2>
-              <p className="text-lg text-muted-foreground">
-                Highlighting some of the most impactful projects and engagements
-              </p>
-            </div>
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+            
+            <div className="space-y-12">
+              {featuredProjects.map((project, index) => (
+                <div key={project.id} className="card">
+                  <div className="card-content">
+                    <div className="grid lg:grid-cols-3 gap-8">
+                      {/* Project Info */}
+                      <div className="lg:col-span-2 space-y-6">
+                        <div className="flex items-start gap-4">
+                          <div className="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400">
+                            {project.icon}
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center gap-3 mb-2">
+                              <h3 className="text-2xl font-bold">{project.title}</h3>
+                              <span className="px-2 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
+                                {project.category}
+                              </span>
+                            </div>
+                            <p className="text-slate-600 dark:text-slate-400 text-lg">
+                              {project.description}
+                            </p>
+                          </div>
+                        </div>
 
-            <div className="grid lg:grid-cols-2 gap-8">
-              {featuredProjects.map((project) => (
-                <div key={project.id} className="card group hover:shadow-lg transition-shadow">
-                  <div className="card-content space-y-4">
-                    {/* Project Image Placeholder */}
-                    <div className="aspect-video rounded-lg bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                      <span className="text-muted-foreground">Project Screenshot</span>
-                    </div>
+                        <div className="space-y-4">
+                          <h4 className="font-semibold text-slate-900 dark:text-slate-100">Key Components:</h4>
+                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            {project.details.map((detail, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                <span className="text-blue-500 mt-1">•</span>
+                                {detail}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
 
-                    {/* Category & Year */}
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-primary font-medium">
-                        {project.category}
-                      </span>
-                      <span className="text-muted-foreground flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {project.year}
-                      </span>
-                    </div>
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech, idx) => (
+                            <span 
+                              key={idx}
+                              className="px-3 py-1 text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
 
-                    {/* Content */}
-                    <div className="space-y-3">
-                      <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        {project.description}
-                      </p>
-                      <div className="text-sm">
-                        <span className="font-medium text-accent-600">Outcome: </span>
-                        <span className="text-muted-foreground">{project.outcome}</span>
+                      {/* Project Metrics */}
+                      <div className="space-y-6">
+                        <div className="bg-slate-50 dark:bg-slate-800 rounded-lg p-6 space-y-4">
+                          <h4 className="font-semibold text-slate-900 dark:text-slate-100">Project Status</h4>
+                          
+                          <div className="space-y-3">
+                            <div className="flex justify-between">
+                              <span className="text-sm text-slate-600 dark:text-slate-400">Status:</span>
+                              <span className="text-sm font-medium">{project.status}</span>
+                            </div>
+                            
+                            <div className="flex justify-between">
+                              <span className="text-sm text-slate-600 dark:text-slate-400">Impact:</span>
+                              <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                                {project.impact}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {index === 0 && (
+                          <div className="text-center">
+                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                              Want to learn more about AI automation in your business?
+                            </p>
+                            <Link 
+                              href="/contact"
+                              className="btn btn-primary btn-sm"
+                            >
+                              Let's Discuss
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     </div>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 5).map((tech) => (
-                        <span 
-                          key={tech}
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 5 && (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">
-                          +{project.technologies.length - 5} more
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex items-center space-x-4 pt-2">
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center text-sm text-primary hover:underline"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-1" />
-                          Live Demo
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center text-sm text-primary hover:underline"
-                        >
-                          <Github className="w-4 h-4 mr-1" />
-                          Source Code
-                        </a>
-                      )}
-                    </div>
                   </div>
                 </div>
               ))}
@@ -205,83 +236,35 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Other Projects */}
-      <section className="section bg-secondary/30">
+      {/* Additional Projects Grid */}
+      <section className="section bg-slate-50 dark:bg-slate-900">
         <div className="container">
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center space-y-4 mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold">More Projects</h2>
-              <p className="text-lg text-muted-foreground">
-                Additional work across various domains and technologies
-              </p>
-            </div>
-
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Additional Work</h2>
+            
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {otherProjects.map((project) => (
-                <div key={project.id} className="card group hover:shadow-lg transition-shadow">
-                  <div className="card-content space-y-4">
-                    {/* Project Image Placeholder */}
-                    <div className="aspect-video rounded-lg bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                      <span className="text-muted-foreground text-sm">Project Screenshot</span>
-                    </div>
-
-                    {/* Category & Year */}
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-primary font-medium">
+              {additionalProjects.map((project, index) => (
+                <div key={index} className="card">
+                  <div className="card-content">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="font-semibold text-lg">{project.title}</h3>
+                      <span className="px-2 py-1 text-xs bg-slate-100 dark:bg-slate-800 rounded-full">
                         {project.category}
                       </span>
-                      <span className="text-muted-foreground">{project.year}</span>
                     </div>
-
-                    {/* Content */}
-                    <div className="space-y-3">
-                      <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm line-clamp-3">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-1">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <span 
-                          key={tech}
-                          className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary text-secondary-foreground"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 3 && (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary text-secondary-foreground">
-                          +{project.technologies.length - 3}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex items-center space-x-4">
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline text-sm"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline text-sm"
-                        >
-                          <Github className="w-4 h-4" />
-                        </a>
-                      )}
+                    
+                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex justify-between items-center text-sm">
+                      <div className="flex items-center gap-1 text-green-600 dark:text-green-400">
+                        <DollarSign className="w-4 h-4" />
+                        <span>{project.value}</span>
+                      </div>
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300 rounded">
+                        {project.status}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -291,27 +274,96 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Services & Capabilities */}
       <section className="section">
         <div className="container">
-          <div className="mx-auto max-w-4xl text-center space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Ready to Build Something Amazing?
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Whether you need strategic guidance, technical leadership, or help 
-              turning your vision into reality, let's discuss your next project.
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">What I Can Help With</h2>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="card">
+                <div className="card-content">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Hammer className="w-5 h-5 text-blue-600" />
+                    Auction Services
+                  </h3>
+                  <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                    <li>• Real estate and property auctions</li>
+                    <li>• Estate liquidation and asset sales</li>
+                    <li>• Commercial and industrial auctions</li>
+                    <li>• Expert witness and valuation services</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="card-content">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Bot className="w-5 h-5 text-purple-600" />
+                    AI & Automation Consulting
+                  </h3>
+                  <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                    <li>• Business process automation</li>
+                    <li>• Custom CRM and project management</li>
+                    <li>• AI tool integration and training</li>
+                    <li>• Workflow optimization and efficiency</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="card-content">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Users className="w-5 h-5 text-green-600" />
+                    Strategic Partnerships
+                  </h3>
+                  <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                    <li>• Joint venture opportunities</li>
+                    <li>• Auction manager partnerships</li>
+                    <li>• Business expansion consulting</li>
+                    <li>• Market entry and growth strategies</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="card-content">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Calendar className="w-5 h-5 text-orange-600" />
+                    Speaking & Advisory
+                  </h3>
+                  <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                    <li>• Conference speaking and keynotes</li>
+                    <li>• Board positions and advisory roles</li>
+                    <li>• Workshop facilitation and training</li>
+                    <li>• Industry expertise and insights</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section bg-slate-50 dark:bg-slate-900">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Ready to Start a Project?</h2>
+            <p className="text-xl text-slate-600 dark:text-slate-400 mb-8">
+              Whether you're looking to automate your business, need auction expertise, 
+              or want to explore partnership opportunities - let's talk.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
+              <Link 
                 href="/contact"
-                className="btn-primary btn-lg"
+                className="btn btn-primary btn-lg"
               >
-                Start a Project
+                Start a Conversation
               </Link>
-              <Link
+              <Link 
                 href="/about"
-                className="btn-outline btn-lg"
+                className="btn btn-outline btn-lg"
               >
                 Learn More About Me
               </Link>
