@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, Linkedin, Twitter, Instagram, Mail } from 'lucide-react'
+import { Github, Linkedin, Twitter, Instagram, Mail, Facebook } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
 
 export function Footer() {
@@ -25,6 +25,11 @@ export function Footer() {
       name: 'Instagram',
       href: SITE_CONFIG.social.instagram,
       icon: Instagram,
+    },
+    {
+      name: 'Facebook',
+      href: SITE_CONFIG.social.facebook,
+      icon: Facebook,
     },
   ]
 

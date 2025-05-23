@@ -1,16 +1,17 @@
 export const SITE_CONFIG = {
   name: 'Will McLemore',
   title: 'Will McLemore - Technology Leader & Strategic Consultant',
-  description: 'Personal website of Will McLemore - technology leader, strategic consultant, and innovation catalyst. Available for technical consulting, startup advisory, and speaking engagements.',
+  description: 'Auctioneer × AI Automation. President of McLemore Auction Company building automated systems for the auction industry.',
   url: process.env.SITE_URL || 'https://willmclemore.com',
   author: 'Will McLemore',
-  email: 'will@willmclemore.com',
+  email: 'will@mclemoreauction.com',
   keywords: ['Will McLemore', 'Technology Leader', 'Strategic Consultant', 'Startup Advisor', 'Innovation', 'Technical Consulting'],
   social: {
-    twitter: 'https://twitter.com/willmclemore',
+    twitter: 'https://twitter.com/willtmc',
     linkedin: 'https://linkedin.com/in/willmclemore',
-    github: 'https://github.com/willmclemore',
-    instagram: 'https://instagram.com/willmclemore',
+    github: 'https://github.com/willtmc',
+    instagram: 'https://instagram.com/willtmc',
+    facebook: 'https://facebook.com/willtmc',
   },
 }
 
@@ -39,6 +40,7 @@ export const SOCIAL_PLATFORMS = {
   LINKEDIN: 'linkedin',
   INSTAGRAM: 'instagram',
   GITHUB: 'github',
+  FACEBOOK: 'facebook',
 } as const
 
 export const BLOG_CONFIG = {

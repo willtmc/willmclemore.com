@@ -71,7 +71,7 @@ DATABASE_URL="postgresql://username:password@localhost:5432/willmclemore_db?sche
 # Site Configuration
 SITE_URL="https://willmclemore.com"
 SITE_NAME="Will McLemore"
-CONTACT_EMAIL="will@willmclemore.com"
+CONTACT_EMAIL="will@mclemoreauction.com"
 
 # Social Media APIs (optional)
 TWITTER_API_KEY=""

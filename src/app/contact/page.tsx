@@ -16,8 +16,8 @@ const contactMethods = [
     icon: <Mail className="w-6 h-6" />,
     title: "Email",
     description: "Best for detailed inquiries and project discussions",
-    action: "will@willmclemore.com",
-    href: "mailto:will@willmclemore.com"
+    action: "will@mclemoreauction.com",
+    href: "mailto:will@mclemoreauction.com"
   },
   {
     icon: <Phone className="w-6 h-6" />,

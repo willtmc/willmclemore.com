@@ -60,14 +60,14 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold text-center mb-8">Get In Touch</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <a 
-                href="mailto:will@willmclemore.com" 
+                href="mailto:will@mclemoreauction.com" 
                 className="card hover:shadow-lg transition-shadow duration-200 group"
               >
                 <div className="card-content text-center">
                   <Mail className="w-8 h-8 text-blue-600 mx-auto mb-3" />
                   <h3 className="font-semibold mb-2">Email</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
-                    will@willmclemore.com
+                    will@mclemoreauction.com
                   </p>
                 </div>
               </a>

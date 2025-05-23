@@ -250,7 +250,7 @@ export default function BlogPage() {
 
                 <div className="flex items-center justify-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                   <Mail className="w-4 h-4" />
-                  <span>Or just email me directly at will@willmclemore.com</span>
+                  <span>Or just email me directly at will@mclemoreauction.com</span>
                 </div>
               </div>
             </div>
