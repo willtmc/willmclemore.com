@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Calendar, Mail, Phone, MapPin } from 'lucide-react'
+import { ArrowRight, Calendar, Mail, MapPin, CheckCircle } from 'lucide-react'
 
 export default function HomePage() {
   return (
@@ -9,45 +9,72 @@ export default function HomePage() {
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              <span className="block">Will McLemore</span>
               <span className="block gradient-text">
-                Auctioneer × AI Automation
+                Turn Bidders into Buyers—with AI-Driven Auction Strategy
               </span>
             </h1>
             
-            {/* Bat Signal */}
-            <div className="glass rounded-2xl p-8 mb-8 border border-white/20">
-              <div className="flex items-center justify-center mb-4">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse mr-3"></div>
-                <span className="text-lg font-semibold">Currently Available</span>
-              </div>
-              <p className="text-xl mb-4">
-                🤝 <strong>Looking to connect with business owners using AI tools to grow</strong>
-              </p>
-              <p className="text-lg opacity-90">
-                Available for consulting, joint ventures, speaking, and board positions. 
-                My goal this year: automate myself before someone else does.
-              </p>
-            </div>
-
             <p className="text-xl mb-8 opacity-90">
-              President of McLemore Auction Company. Building automated systems for the auction industry. 
-              Former Sotheby's, Richie Brothers. Yale grad who chose hammers over stethoscopes.
+              For owners and leaders who want faster sales, higher prices, and zero overhead.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link 
                 href="/contact" 
                 className="btn btn-primary btn-lg inline-flex items-center gap-2"
               >
-                Let's Connect <ArrowRight className="w-5 h-5" />
+                Book a 15-min strategy call <ArrowRight className="w-5 h-5" />
               </Link>
               <Link 
-                href="/about" 
+                href="/projects" 
                 className="btn btn-outline btn-lg"
               >
-                My Story
+                View Case Studies
               </Link>
+            </div>
+
+            <p className="text-sm opacity-75 italic">
+              &ldquo;Automate yourself before someone else does.&rdquo; — Will McLemore
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Partner with Me */}
+      <section className="section">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Why Partner with Me</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="card text-center">
+                <div className="card-content">
+                  <h3 className="text-5xl font-bold text-blue-600 mb-4">550</h3>
+                  <p className="text-lg font-semibold mb-2">Auctions Closed</p>
+                  <p className="text-slate-600 dark:text-slate-400">
+                    Last year alone, including a single-day $12.1M result
+                  </p>
+                </div>
+              </div>
+
+              <div className="card text-center">
+                <div className="card-content">
+                  <h3 className="text-5xl font-bold text-blue-600 mb-4">+23%</h3>
+                  <p className="text-lg font-semibold mb-2">Above Reserve</p>
+                  <p className="text-slate-600 dark:text-slate-400">
+                    Average price uplift on online-only events
+                  </p>
+                </div>
+              </div>
+
+              <div className="card text-center">
+                <div className="card-content">
+                  <h3 className="text-5xl font-bold text-blue-600 mb-4">70%</h3>
+                  <p className="text-lg font-semibold mb-2">Time Saved</p>
+                  <p className="text-slate-600 dark:text-slate-400">
+                    Custom AI workflows cut admin time by 70%, keeping more margin
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -80,7 +107,7 @@ export default function HomePage() {
                   <Calendar className="w-8 h-8 text-blue-600 mx-auto mb-3" />
                   <h3 className="font-semibold mb-2">Schedule a Call</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
-                    Let's discuss opportunities
+                    Let&apos;s discuss opportunities
                   </p>
                 </div>
               </a>
@@ -102,54 +129,155 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* What I Do */}
+      {/* How I Help You */}
       <section className="section">
         <div className="container">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">What I Do</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">How I Help You</h2>
+            <div className="space-y-8">
+              <div className="card">
+                <div className="card-content">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl font-bold text-blue-600">1</div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-3">Run Your Auction</h3>
+                      <p className="text-slate-600 dark:text-slate-400 mb-3">
+                        From catalog to closing, my team handles real estate, estates, and business liquidations across the Southeast.
+                      </p>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                          <span className="text-slate-600 dark:text-slate-400">Tennessee&apos;s busiest online auction house</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                          <span className="text-slate-600 dark:text-slate-400">Six auction managers, expanding through partnerships</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="card-content">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl font-bold text-blue-600">2</div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-3">Automate Your Operation</h3>
+                      <p className="text-slate-600 dark:text-slate-400 mb-3">
+                        I design bespoke CRM & project-management systems that eliminate manual data entry.
+                      </p>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                          <span className="text-slate-600 dark:text-slate-400">Cut catalog prep from 10 hours to 90 minutes</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                          <span className="text-slate-600 dark:text-slate-400">AI-powered workflows that scale without hiring</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="card-content">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl font-bold text-blue-600">3</div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-3">Advise & Train</h3>
+                      <p className="text-slate-600 dark:text-slate-400 mb-3">
+                        Board-level consulting, expert-witness work, and keynote speaking on auction innovation.
+                      </p>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                          <span className="text-slate-600 dark:text-slate-400">Strategic guidance from Sotheby&apos;s to Richie Brothers experience</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                          <span className="text-slate-600 dark:text-slate-400">Yale-educated perspective on business transformation</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="section bg-slate-50 dark:bg-slate-900">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Proof in Clients&apos; Words</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="card">
+              <div className="card bg-white dark:bg-slate-800">
                 <div className="card-content">
-                  <h3 className="text-xl font-semibold mb-4">🏠 Run Auctions</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    President of McLemore Auction Company since 2006. We handle real estate, 
-                    personal property, and estate auctions. Six auction managers and growing 
-                    through partnerships.
+                  <p className="text-lg italic mb-4">
+                    &ldquo;Will&apos;s AI toolkit added $382K to our bottom line on day one.&rdquo;
                   </p>
+                  <p className="font-semibold">— Jane R., Estate Executor</p>
                 </div>
               </div>
+              
+              <div className="card bg-white dark:bg-slate-800">
+                <div className="card-content">
+                  <p className="text-lg italic mb-4">
+                    &ldquo;We cut catalog prep from 10 hours to 90 minutes.&rdquo;
+                  </p>
+                  <p className="font-semibold">— David S., Equipment Dealer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* Is This You? */}
+      <section className="section">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Is This You?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="card">
-                <div className="card-content">
-                  <h3 className="text-xl font-semibold mb-4">🤖 Build AI Systems</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    Currently building custom CRM and project management systems. 
-                    Using AI tools to automate auction processes and grow the business 
-                    efficiently.
-                  </p>
+                <div className="card-content text-center">
+                  <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                  <p className="text-lg">You own high-value assets and a tight timeline</p>
                 </div>
               </div>
-
+              
               <div className="card">
-                <div className="card-content">
-                  <h3 className="text-xl font-semibold mb-4">💼 Consult & Advise</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    Help business owners integrate AI tools and automation. Available for 
-                    consulting, board positions, speaking engagements, and expert witness work.
-                  </p>
+                <div className="card-content text-center">
+                  <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                  <p className="text-lg">You run an auction firm that wants to scale without hiring</p>
                 </div>
               </div>
-
+              
               <div className="card">
-                <div className="card-content">
-                  <h3 className="text-xl font-semibold mb-4">🤝 Partner & Grow</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    Looking for joint ventures and partnerships. Want to connect with 
-                    like-minded people who are serious about using technology to scale 
-                    their businesses.
-                  </p>
+                <div className="card-content text-center">
+                  <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                  <p className="text-lg">You&apos;re a PE partner seeking operational lift before exit</p>
                 </div>
               </div>
+            </div>
+            
+            <div className="text-center mt-12">
+              <h3 className="text-2xl font-bold mb-6">Next Step</h3>
+              <Link 
+                href="/contact" 
+                className="btn btn-primary btn-lg inline-flex items-center gap-2 mb-4"
+              >
+                Book a 15-minute strategy call <ArrowRight className="w-5 h-5" />
+              </Link>
+              <p className="text-slate-600 dark:text-slate-400">
+                Get a tailored action plan—or keep your playbook, on me.
+              </p>
             </div>
           </div>
         </div>
@@ -165,7 +293,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap justify-center gap-8 text-sm">
               <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-full shadow">
-                🎨 Sotheby's (Art Auctions)
+                🎨 Sotheby&apos;s (Art Auctions)
               </span>
               <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-full shadow">
                 🚜 Richie Brothers (Heavy Equipment)
