@@ -33,6 +33,9 @@ model BlogPost {
   syndicatedTo String? // Comma-separated platforms for SQLite
   socialMediaPosts SocialMediaPost[]
   
+  // Intelligence system integration
+  contentIdeas ContentIdea[]
+  
   @@map("blog_posts")
 }
 
@@ -92,3 +95,110 @@ model SiteSettings {
   
   @@map("site_settings")
 }
+
+// Auction Intelligence System Models
+
+model IntelligenceItem {
+  id          String   @id @default(cuid())
+  title       String
+  summary     String
+  url         String?
+  source      String   // Source publication/website
+  category    String   // real_estate, equipment, art, business_liquidation, technology, ai_trends
+  importance  Int      @default(5) // 1-10 scale
+  region      String?  // Geographic region if applicable
+  content     String?  // Full text content if scraped
+  tags        String?  // Comma-separated tags
+  sentiment   String?  // positive, negative, neutral
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // AI Analysis
+  aiAnalyses  AIAnalysis[]
+  
+  // Trend connections
+  trends      TrendAnalysis[] @relation("ItemTrends")
+  
+  @@map("intelligence_items")
+}
+
+model TrendAnalysis {
+  id          String   @id @default(cuid())
+  name        String   // e.g., "Commercial Real Estate Auction Surge"
+  description String
+  category    String   // Same categories as IntelligenceItem
+  strength    Int      @default(5) // 1-10 trend strength
+  timeframe   String   // daily, weekly, monthly
+  region      String?
+  insights    String?  // AI-generated insights
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Related items
+  items       IntelligenceItem[] @relation("ItemTrends")
+  
+  // Generated content ideas
+  contentIdeas ContentIdea[]
+  
+  @@map("trend_analyses")
+}
+
+model ContentIdea {
+  id          String   @id @default(cuid())
+  title       String
+  description String   // The "content gesture" - brief idea
+  category    String
+  priority    Int      @default(5) // 1-10 priority
+  status      String   @default("idea") // idea, researching, drafting, drafted, published
+  angle       String?  // The specific angle/approach
+  estimatedLength String? // short, medium, long
+  targetKeywords String? // SEO keywords
+  aiModel     String?  // Which AI suggested this
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Source trend
+  trendId     String?
+  trend       TrendAnalysis? @relation(fields: [trendId], references: [id])
+  
+  // Generated blog post
+  blogPostId  String?
+  blogPost    BlogPost? @relation(fields: [blogPostId], references: [id])
+  
+  @@map("content_ideas")
+}
+
+model ResearchSource {
+  id          String   @id @default(cuid())
+  name        String
+  url         String
+  type        String   // news, publication, blog, social, official
+  category    String   // auction_house, industry_publication, news, legal, equipment
+  isActive    Boolean  @default(true)
+  lastChecked DateTime?
+  reliability Int      @default(5) // 1-10 reliability score
+  apiKey      String?  // For sources with APIs
+  scrapingConfig String? // JSON config for web scraping
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("research_sources")
+}
+
+model AIAnalysis {
+  id          String   @id @default(cuid())
+  model       String   // claude, chatgpt, gemini, perplexity, deepseek, grok
+  prompt      String   // The prompt used
+  response    String   // AI response
+  type        String   // summary, trend_analysis, content_idea, market_insight
+  confidence  Int?     // 1-10 confidence score
+  createdAt   DateTime @default(now())
+  
+  // Related intelligence item
+  itemId      String?
+  item        IntelligenceItem? @relation(fields: [itemId], references: [id])
+  
+  @@map("ai_analyses")
+}
+

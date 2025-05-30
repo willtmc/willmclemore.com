@@ -21,6 +21,7 @@ export const NAVIGATION_ITEMS = [
   { name: 'Projects', href: '/projects' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
+  { name: 'Admin', href: '/admin' }, // TODO: Add authentication
 ]
 
 export const PROJECT_TYPES = [
