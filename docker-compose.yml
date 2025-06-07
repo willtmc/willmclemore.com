@@ -1,23 +1,14 @@
 version: '3.8'
 
-services:
-  postgres:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_USER: willmclemore
-      POSTGRES_PASSWORD: dev_password_123
-      POSTGRES_DB: willmclemore_dev
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U willmclemore"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+# Simplified docker-compose for development
+# This project uses Railway's PostgreSQL database for both local and production
+# No local database container needed
 
-volumes:
-  postgres_data: 
+services:
+  # You can add other services here if needed in the future
+  # For example: Redis, Elasticsearch, etc.
+  
+# Note: To run the app locally, just use:
+# npm run dev
+# 
+# Make sure your .env file has the Railway DATABASE_URL

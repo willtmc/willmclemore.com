@@ -169,80 +169,55 @@ SMTP_PASS=""
 
 ### 3. Database Setup
 
-This project uses **PostgreSQL for both development and production** to ensure environment parity and avoid database-specific issues.
+This project uses **Railway's PostgreSQL database for both development and production**. This simplifies setup and ensures you're always working with real data.
 
-### Local Development Setup
+### Development Setup
 
-1. **Prerequisites**: Make sure you have Docker installed
+1. **Get your Railway database URL**:
+   - Go to your Railway project dashboard
+   - Click on your PostgreSQL service
+   - Go to the "Connect" tab
+   - Copy the `DATABASE_URL`
 
-2. **Start the local database**:
+2. **Configure your environment file**:
    ```bash
-   npm run db:up
+   cp .env.example .env
    ```
 
-3. **Configure your environment file**:
+3. **Update `.env` with your Railway DATABASE_URL**:
    ```bash
-   cp env.example .env
-   ```
-
-4. **Update `.env` with local development values**:
-   ```bash
-   DATABASE_URL="postgresql://willmclemore:dev_password_123@localhost:5432/willmclemore_dev?schema=public"
+   DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@YOUR_HOST.railway.app:PORT/railway"
    NEXTAUTH_URL="http://localhost:3000"
    SITE_URL="http://localhost:3000"
+   NEXT_PUBLIC_APP_URL="http://localhost:3000"
    ```
 
-5. **Run database migrations**:
-   ```bash
-   npm run db:migrate:dev
-   ```
-
-6. **Start the development server**:
+4. **Start the development server**:
    ```bash
    npm run dev
    ```
 
-### Automated Setup
-
-You can also use the automated setup command:
-```bash
-npm run dev:setup
-```
-
-This will:
-- Start PostgreSQL with Docker
-- Wait for the database to be ready
-- Run migrations
-- Start the development server
+That's it! No local database setup required.
 
 ### Database Management Commands
 
 ```bash
-# Start PostgreSQL container
-npm run db:up
+# Open Prisma Studio to view/edit data
+npm run db:studio
 
-# Stop PostgreSQL container
-npm run db:down
-
-# Reset database (removes all data)
-npm run db:reset
-
-# Run migrations in development
+# Run migrations (if schema changes)
 npm run db:migrate:dev
 
 # Push schema changes without migration
 npm run db:push
-
-# Open Prisma Studio (database GUI)
-npm run db:studio
 ```
 
-### Why PostgreSQL Everywhere?
+### Why One Database?
 
-- **Environment Parity**: Your local environment matches production exactly
-- **No Schema Conflicts**: One `schema.prisma` file works for all environments
-- **Better Testing**: Catch PostgreSQL-specific issues during development
-- **Professional Practice**: Industry standard approach
+- **Simplicity**: No local database containers or Docker required
+- **Real Data**: Always working with your actual content
+- **No Sync Issues**: What you see locally is what's live
+- **Faster Setup**: Get started in minutes, not hours
 
 ### Production Deployment
 

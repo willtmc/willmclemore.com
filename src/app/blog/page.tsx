@@ -11,75 +11,65 @@ export const metadata: Metadata = {
   },
 }
 
-// Sample blog posts - in a real app, these would come from the database
-const featuredPosts = [
-  {
-    id: '1',
-    title: 'Automating My Auction Business: A Year-Long Journey',
-    excerpt: 'How I built custom CRM and project management systems to automate 50% of our auction processes. Lessons learned, tools used, and results achieved.',
-    content: 'Building automation in a traditional industry like auctions...',
-    publishedAt: new Date('2024-01-15'),
-    readingTime: 8,
-    tags: ['AI Automation', 'Business Systems', 'Case Study'],
-    featured: true,
-    category: 'Automation'
-  },
-  {
-    id: '2', 
-    title: 'From Sotheby\'s to Heavy Equipment: What I Learned Working Every Type of Auction',
-    excerpt: 'Unique insights from working at the world\'s largest art auction house and the largest heavy equipment auctioneer. The patterns that apply across all auction types.',
-    content: 'Most auctioneers specialize in one area...',
-    publishedAt: new Date('2024-01-02'),
-    readingTime: 6,
-    tags: ['Auction Industry', 'Career Insights', 'Expertise'],
-    featured: true,
-    category: 'Industry'
-  }
-]
+interface BlogPost {
+  id: string
+  title: string
+  slug: string
+  excerpt: string | null
+  content: string
+  publishedAt: Date | null
+  tags: string | null
+  featured: boolean
+  coverImage: string | null
+}
 
-const allPosts = [
-  ...featuredPosts,
-  {
-    id: '3',
-    title: 'AI Tools Every Business Owner Should Try in 2024',
-    excerpt: 'The specific AI tools I use to automate client intake, project management, and marketing in my auction business.',
-    publishedAt: new Date('2023-12-18'),
-    readingTime: 5,
-    tags: ['AI Tools', 'Productivity', 'Small Business'],
-    featured: false,
-    category: 'Tools'
-  },
-  {
-    id: '4',
-    title: 'Why I Choose Hammers Over Stethoscopes: Lessons from a Yale Graduate in Auctions',
-    excerpt: 'How following your passion instead of conventional wisdom can lead to unexpected success and fulfillment.',
-    publishedAt: new Date('2023-12-05'),
-    readingTime: 4,
-    tags: ['Career Advice', 'Personal Story', 'Life Lessons'],
-    featured: false,
-    category: 'Personal'
-  },
-  {
-    id: '5',
-    title: 'Building Partnerships in Traditional Industries',
-    excerpt: 'Strategies for finding and building successful joint ventures in established businesses like real estate and auctions.',
-    publishedAt: new Date('2023-11-22'),
-    readingTime: 7,
-    tags: ['Partnerships', 'Business Growth', 'Strategy'],
-    featured: false,
-    category: 'Business'
-  },
-  {
-    id: '6',
-    title: 'The Future of Real Estate Auctions: Technology Trends to Watch',
-    excerpt: 'How AI, online bidding platforms, and automation are changing the auction industry and what it means for buyers and sellers.',
-    publishedAt: new Date('2023-11-08'),
-    readingTime: 6,
-    tags: ['Real Estate', 'Technology Trends', 'Future Outlook'],
-    featured: false,
-    category: 'Industry'
+async function getBlogPosts() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/blog?published=true`, {
+      cache: 'no-store'
+    })
+    
+    if (!res.ok) {
+      throw new Error('Failed to fetch posts')
+    }
+    
+    const data = await res.json()
+    return data.posts as BlogPost[]
+  } catch (error) {
+    console.error('Error fetching blog posts:', error)
+    // Return empty array if fetch fails
+    return []
   }
-]
+}
+
+function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200
+  const wordCount = content.split(/\s+/).length
+  return Math.ceil(wordCount / wordsPerMinute)
+}
+
+function getCategory(tags: string | null): string {
+  if (!tags) return 'General'
+  const tagList = tags.split(',').map(t => t.trim())
+  
+  if (tagList.some(t => t.toLowerCase().includes('automation') || t.toLowerCase().includes('ai'))) {
+    return 'Automation'
+  }
+  if (tagList.some(t => t.toLowerCase().includes('auction') || t.toLowerCase().includes('industry'))) {
+    return 'Industry'
+  }
+  if (tagList.some(t => t.toLowerCase().includes('business') || t.toLowerCase().includes('partnership'))) {
+    return 'Business'
+  }
+  if (tagList.some(t => t.toLowerCase().includes('personal') || t.toLowerCase().includes('career'))) {
+    return 'Personal'
+  }
+  if (tagList.some(t => t.toLowerCase().includes('tool') || t.toLowerCase().includes('productivity'))) {
+    return 'Tools'
+  }
+  
+  return 'General'
+}
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', {
@@ -89,7 +79,7 @@ function formatDate(date: Date): string {
   })
 }
 
-function PostCard({ post, featured = false }: { post: typeof allPosts[0], featured?: boolean }) {
+function PostCard({ post, featured = false }: { post: BlogPost & { readingTime: number, category: string }, featured?: boolean }) {
   return (
     <article className={`card ${featured ? 'border-2 border-blue-200 dark:border-blue-800' : ''}`}>
       <div className="card-content space-y-4">
@@ -100,10 +90,12 @@ function PostCard({ post, featured = false }: { post: typeof allPosts[0], featur
         )}
         
         <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
-          <div className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
-            {formatDate(post.publishedAt)}
-          </div>
+          {post.publishedAt && (
+            <div className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              {formatDate(new Date(post.publishedAt))}
+            </div>
+          )}
           <div className="flex items-center gap-1">
             <Clock className="w-4 h-4" />
             {post.readingTime} min read
@@ -115,7 +107,7 @@ function PostCard({ post, featured = false }: { post: typeof allPosts[0], featur
 
         <div className="space-y-3">
           <h2 className={`font-bold ${featured ? 'text-2xl' : 'text-xl'} hover:text-blue-600 dark:hover:text-blue-400 transition-colors`}>
-            <Link href={`/blog/${post.id}`}>
+            <Link href={`/blog/${post.slug}`}>
               {post.title}
             </Link>
           </h2>
@@ -126,20 +118,20 @@ function PostCard({ post, featured = false }: { post: typeof allPosts[0], featur
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {post.tags.map((tag) => (
+          {post.tags && post.tags.split(',').map((tag) => (
             <span 
-              key={tag}
+              key={tag.trim()}
               className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
             >
               <Tag className="w-3 h-3 mr-1" />
-              {tag}
+              {tag.trim()}
             </span>
           ))}
         </div>
 
         <div className="pt-2">
           <Link 
-            href={`/blog/${post.id}`}
+            href={`/blog/${post.slug}`}
             className="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
           >
             Read more <ArrowRight className="w-4 h-4 ml-1" />
@@ -150,8 +142,18 @@ function PostCard({ post, featured = false }: { post: typeof allPosts[0], featur
   )
 }
 
-export default function BlogPage() {
-  const otherPosts = allPosts.filter(post => !post.featured)
+export default async function BlogPage() {
+  const posts = await getBlogPosts()
+  
+  // Add calculated fields to posts
+  const postsWithMetadata = posts.map(post => ({
+    ...post,
+    readingTime: calculateReadingTime(post.content),
+    category: getCategory(post.tags)
+  }))
+  
+  const featuredPosts = postsWithMetadata.filter(post => post.featured)
+  const otherPosts = postsWithMetadata.filter(post => !post.featured)
 
   return (
     <div className="min-h-screen">
@@ -205,11 +207,21 @@ export default function BlogPage() {
         <div className="container">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">All Posts</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {otherPosts.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
-            </div>
+            {posts.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-slate-600 dark:text-slate-400 mb-4">No blog posts yet. Check back soon!</p>
+              </div>
+            ) : otherPosts.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {otherPosts.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-slate-600 dark:text-slate-400">All posts are currently featured above.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

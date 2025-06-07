@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import { FileText, Lightbulb, Edit3, Eye, Calendar, Clock, TrendingUp, Brain, Target, ArrowRight, Plus } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { FileText, Lightbulb, Edit3, Eye, Calendar, Clock, TrendingUp, Brain, Target, ArrowRight, Plus, Trash2, Archive } from 'lucide-react'
+import Link from 'next/link'
 
 const CONTENT_STATUSES = [
   { id: 'idea', name: 'Ideas', color: 'bg-yellow-100 text-yellow-700', icon: Lightbulb },
@@ -68,10 +69,44 @@ const MOCK_CONTENT_IDEAS = [
   }
 ]
 
+interface BlogPost {
+  id: string
+  title: string
+  slug: string
+  excerpt: string | null
+  published: boolean
+  featured: boolean
+  publishedAt: Date | null
+  tags: string | null
+  createdAt: Date
+  updatedAt: Date
+}
+
 export default function ContentPage() {
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [sortBy, setSortBy] = useState('priority')
   const [ideas, setIdeas] = useState(MOCK_CONTENT_IDEAS)
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
+  const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState<'ideas' | 'posts'>('ideas')
+
+  useEffect(() => {
+    fetchBlogPosts()
+  }, [])
+
+  const fetchBlogPosts = async () => {
+    try {
+      const res = await fetch('/api/blog')
+      if (res.ok) {
+        const data = await res.json()
+        setBlogPosts(data.posts)
+      }
+    } catch (error) {
+      console.error('Error fetching blog posts:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const filteredIdeas = ideas.filter(idea => 
     selectedStatus === 'all' || idea.status === selectedStatus
@@ -121,25 +156,105 @@ export default function ContentPage() {
     return acc
   }, {} as Record<string, number>)
 
+  const handleTogglePublished = async (postId: string, currentStatus: boolean) => {
+    try {
+      const res = await fetch(`/api/blog/${postId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ published: !currentStatus })
+      })
+      if (res.ok) {
+        fetchBlogPosts()
+      }
+    } catch (error) {
+      console.error('Error updating post:', error)
+    }
+  }
+
+  const handleToggleFeatured = async (postId: string, currentStatus: boolean) => {
+    try {
+      const res = await fetch(`/api/blog/${postId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ featured: !currentStatus })
+      })
+      if (res.ok) {
+        fetchBlogPosts()
+      }
+    } catch (error) {
+      console.error('Error updating post:', error)
+    }
+  }
+
+  const handleDeletePost = async (postId: string) => {
+    if (!confirm('Are you sure you want to delete this post?')) return
+    
+    try {
+      const res = await fetch(`/api/blog/${postId}`, {
+        method: 'DELETE'
+      })
+      if (res.ok) {
+        fetchBlogPosts()
+      }
+    } catch (error) {
+      console.error('Error deleting post:', error)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <div className="container py-8">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Content Pipeline</h1>
-              <p className="text-slate-600 dark:text-slate-400">
-                Manage blog post ideas from concept to publication
-              </p>
-            </div>
-            <button className="btn btn-primary flex items-center gap-2">
-              <Plus className="w-4 h-4" />
-              New Content Idea
-            </button>
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-2">Content Pipeline</h1>
+            <p className="text-slate-600 dark:text-slate-400">
+              Manage blog post ideas from concept to publication
+            </p>
           </div>
 
-          {/* Pipeline Overview */}
-          <div className="grid md:grid-cols-5 gap-4 mb-8">
+          {/* Tabs */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+              <button
+                onClick={() => setActiveTab('ideas')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  activeTab === 'ideas'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                Content Ideas
+              </button>
+              <button
+                onClick={() => setActiveTab('posts')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  activeTab === 'posts'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                Blog Posts ({blogPosts.length})
+              </button>
+            </div>
+            <div>
+              {activeTab === 'ideas' ? (
+                <button className="btn btn-primary flex items-center gap-2">
+                  <Plus className="w-4 h-4" />
+                  New Content Idea
+                </button>
+              ) : (
+                <Link href="/admin/content/new-post" className="btn btn-primary flex items-center gap-2">
+                  <Plus className="w-4 h-4" />
+                  New Blog Post
+                </Link>
+              )}
+            </div>
+          </div>
+
+          {activeTab === 'ideas' ? (
+            <>
+              {/* Pipeline Overview */}
+              <div className="grid md:grid-cols-5 gap-4 mb-8">
             <button
               onClick={() => setSelectedStatus('all')}
               className={`card p-4 text-center transition-colors ${
@@ -338,6 +453,159 @@ export default function ContentPage() {
               </div>
             </div>
           </div>
+            </>
+          ) : (
+            <>
+              {/* Blog Posts Management */}
+              <div className="space-y-4">
+                {loading ? (
+                  <div className="text-center py-12">
+                    <div className="text-slate-400">Loading blog posts...</div>
+                  </div>
+                ) : blogPosts.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="text-slate-400 mb-4">No blog posts yet</div>
+                    <Link href="/admin/content/new-post" className="btn btn-primary">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Create First Post
+                    </Link>
+                  </div>
+                ) : (
+                  <>
+                    {/* Blog Posts List */}
+                    <div className="space-y-4">
+                      {blogPosts.map((post) => (
+                        <div key={post.id} className="card hover:shadow-md transition-shadow">
+                          <div className="card-content">
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="flex-1 space-y-2">
+                                <div className="flex items-center gap-3 flex-wrap">
+                                  <h3 className="text-lg font-semibold">
+                                    {post.title}
+                                  </h3>
+                                  <div className="flex gap-2">
+                                    {post.featured && (
+                                      <span className="px-2 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 rounded-full text-xs">
+                                        Featured
+                                      </span>
+                                    )}
+                                    <span className={`px-2 py-1 rounded-full text-xs ${
+                                      post.published
+                                        ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+                                        : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
+                                    }`}>
+                                      {post.published ? 'Published' : 'Draft'}
+                                    </span>
+                                  </div>
+                                </div>
+                                
+                                {post.excerpt && (
+                                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    {post.excerpt}
+                                  </p>
+                                )}
+                                
+                                <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
+                                  {post.publishedAt && (
+                                    <div className="flex items-center gap-1">
+                                      <Calendar className="w-4 h-4" />
+                                      {new Date(post.publishedAt).toLocaleDateString()}
+                                    </div>
+                                  )}
+                                  <div>
+                                    Slug: <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">{post.slug}</code>
+                                  </div>
+                                  {post.tags && (
+                                    <div className="flex items-center gap-1">
+                                      Tags: {post.tags}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              
+                              {/* Actions */}
+                              <div className="flex gap-2">
+                                <Link 
+                                  href={`/blog/${post.slug}`}
+                                  target="_blank"
+                                  className="btn btn-sm btn-secondary"
+                                >
+                                  <Eye className="w-4 h-4" />
+                                  View
+                                </Link>
+                                <Link 
+                                  href={`/admin/content/edit/${post.id}`}
+                                  className="btn btn-sm btn-primary"
+                                >
+                                  <Edit3 className="w-4 h-4" />
+                                  Edit
+                                </Link>
+                                <button
+                                  onClick={() => handleTogglePublished(post.id, post.published)}
+                                  className="btn btn-sm btn-secondary"
+                                >
+                                  {post.published ? <Archive className="w-4 h-4" /> : <Calendar className="w-4 h-4" />}
+                                  {post.published ? 'Unpublish' : 'Publish'}
+                                </button>
+                                <button
+                                  onClick={() => handleToggleFeatured(post.id, post.featured)}
+                                  className="btn btn-sm btn-secondary"
+                                >
+                                  {post.featured ? 'Unfeature' : 'Feature'}
+                                </button>
+                                <button
+                                  onClick={() => handleDeletePost(post.id)}
+                                  className="btn btn-sm btn-secondary text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {/* Blog Stats */}
+                    <div className="mt-8 grid md:grid-cols-4 gap-4">
+                      <div className="card">
+                        <div className="card-content text-center">
+                          <div className="text-2xl font-bold text-blue-600">
+                            {blogPosts.length}
+                          </div>
+                          <div className="text-sm text-slate-600 dark:text-slate-400">Total Posts</div>
+                        </div>
+                      </div>
+                      <div className="card">
+                        <div className="card-content text-center">
+                          <div className="text-2xl font-bold text-green-600">
+                            {blogPosts.filter(p => p.published).length}
+                          </div>
+                          <div className="text-sm text-slate-600 dark:text-slate-400">Published</div>
+                        </div>
+                      </div>
+                      <div className="card">
+                        <div className="card-content text-center">
+                          <div className="text-2xl font-bold text-yellow-600">
+                            {blogPosts.filter(p => !p.published).length}
+                          </div>
+                          <div className="text-sm text-slate-600 dark:text-slate-400">Drafts</div>
+                        </div>
+                      </div>
+                      <div className="card">
+                        <div className="card-content text-center">
+                          <div className="text-2xl font-bold text-purple-600">
+                            {blogPosts.filter(p => p.featured).length}
+                          </div>
+                          <div className="text-sm text-slate-600 dark:text-slate-400">Featured</div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
