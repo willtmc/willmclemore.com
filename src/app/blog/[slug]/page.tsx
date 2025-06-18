@@ -1,42 +1,17 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react'
+import { getPostBySlug, getReadingTimeStats, formatDate } from '@/lib/blog'
+import { MDXContent } from '@/components/MDXContent'
+import { extractBlogPostData } from '@/lib/blog-content'
+import { ReadingTime } from '@/components/ReadingTime'
 
-interface BlogPost {
-  id: string
-  title: string
-  slug: string
-  excerpt: string | null
-  content: string
-  publishedAt: Date | null
-  tags: string | null
-  featured: boolean
-  coverImage: string | null
-  seoTitle: string | null
-  seoDescription: string | null
-}
-
-async function getBlogPost(slug: string): Promise<BlogPost | null> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/blog/${slug}`, {
-      cache: 'no-store'
-    })
-    
-    if (!res.ok) {
-      return null
-    }
-    
-    return await res.json()
-  } catch (error) {
-    console.error('Error fetching blog post:', error)
-    return null
-  }
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const post = await getBlogPost(slug)
+  const post = await getPostBySlug(slug)
   
   if (!post) {
     return {
@@ -55,29 +30,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
-
-function calculateReadingTime(content: string): number {
-  const wordsPerMinute = 200
-  const wordCount = content.split(/\s+/).length
-  return Math.ceil(wordCount / wordsPerMinute)
-}
-
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const post = await getBlogPost(slug)
+  const post = await getPostBySlug(slug)
   
   if (!post) {
     notFound()
   }
 
-  const readingTime = calculateReadingTime(post.content)
+  // Extract content and metadata, handling frontmatter if present
+  const { content, metadata, readingTime } = extractBlogPostData(post)
+  const readingStats = getReadingTimeStats(content)
 
   return (
     <article className="min-h-screen">
@@ -94,25 +57,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </Link>
 
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              {post.title}
+              {metadata.title}
             </h1>
 
             <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-slate-400 mb-8">
-              {post.publishedAt && (
+              {metadata.publishedAt && (
                 <div className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  {formatDate(new Date(post.publishedAt))}
+                  {formatDate(new Date(metadata.publishedAt))}
                 </div>
               )}
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                {readingTime} min read
-              </div>
+              <ReadingTime 
+                minutes={readingStats.minutes} 
+                words={readingStats.words} 
+                verbose={true}
+              />
             </div>
 
-            {post.tags && (
+            {metadata.tags && (
               <div className="flex flex-wrap gap-2 mb-8">
-                {post.tags.split(',').map((tag) => (
+                {metadata.tags.split(',').map((tag) => (
                   <span 
                     key={tag.trim()}
                     className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
@@ -124,9 +88,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </div>
             )}
 
-            {post.excerpt && (
+            {metadata.excerpt && (
               <p className="text-xl text-slate-600 dark:text-slate-400 italic">
-                {post.excerpt}
+                {metadata.excerpt}
               </p>
             )}
           </div>
@@ -134,13 +98,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </header>
 
       {/* Cover Image */}
-      {post.coverImage && (
+      {metadata.coverImage && (
         <div className="container mb-12">
           <div className="max-w-4xl mx-auto">
-            <img 
-              src={post.coverImage} 
-              alt={post.title}
+            <Image 
+              src={metadata.coverImage} 
+              alt={metadata.title}
+              width={1200}
+              height={630}
               className="w-full rounded-lg shadow-lg"
+              priority
             />
           </div>
         </div>
@@ -150,13 +117,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <div className="section">
         <div className="container">
           <div className="max-w-4xl mx-auto">
-            <div className="prose prose-slate dark:prose-invert max-w-none">
-              {post.content.split('\n\n').map((paragraph, index) => (
-                <p key={index} className="mb-4">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            <MDXContent source={content} />
           </div>
         </div>
       </div>

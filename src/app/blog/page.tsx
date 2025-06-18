@@ -1,6 +1,10 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Calendar, Clock, ArrowRight, Tag, Mail } from 'lucide-react'
+import { Calendar, Clock, ArrowRight, Tag, Mail, Rss } from 'lucide-react'
+import { BlogPostWithMetadata } from '@/types/blog'
+import { getPosts, addMetadataToPosts, formatDate } from '@/lib/blog'
+import { ReadingTime, ReadingTimeBadge } from '@/components/ReadingTime'
+import { RSSLinks, RSSSubscribeButton } from '@/components/RSSLinks'
 
 export const metadata: Metadata = {
   title: 'Blog - Will McLemore',
@@ -11,75 +15,8 @@ export const metadata: Metadata = {
   },
 }
 
-interface BlogPost {
-  id: string
-  title: string
-  slug: string
-  excerpt: string | null
-  content: string
-  publishedAt: Date | null
-  tags: string | null
-  featured: boolean
-  coverImage: string | null
-}
 
-async function getBlogPosts() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/blog?published=true`, {
-      cache: 'no-store'
-    })
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch posts')
-    }
-    
-    const data = await res.json()
-    return data.posts as BlogPost[]
-  } catch (error) {
-    console.error('Error fetching blog posts:', error)
-    // Return empty array if fetch fails
-    return []
-  }
-}
-
-function calculateReadingTime(content: string): number {
-  const wordsPerMinute = 200
-  const wordCount = content.split(/\s+/).length
-  return Math.ceil(wordCount / wordsPerMinute)
-}
-
-function getCategory(tags: string | null): string {
-  if (!tags) return 'General'
-  const tagList = tags.split(',').map(t => t.trim())
-  
-  if (tagList.some(t => t.toLowerCase().includes('automation') || t.toLowerCase().includes('ai'))) {
-    return 'Automation'
-  }
-  if (tagList.some(t => t.toLowerCase().includes('auction') || t.toLowerCase().includes('industry'))) {
-    return 'Industry'
-  }
-  if (tagList.some(t => t.toLowerCase().includes('business') || t.toLowerCase().includes('partnership'))) {
-    return 'Business'
-  }
-  if (tagList.some(t => t.toLowerCase().includes('personal') || t.toLowerCase().includes('career'))) {
-    return 'Personal'
-  }
-  if (tagList.some(t => t.toLowerCase().includes('tool') || t.toLowerCase().includes('productivity'))) {
-    return 'Tools'
-  }
-  
-  return 'General'
-}
-
-function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
-
-function PostCard({ post, featured = false }: { post: BlogPost & { readingTime: number, category: string }, featured?: boolean }) {
+function PostCard({ post, featured = false }: { post: BlogPostWithMetadata, featured?: boolean }) {
   return (
     <article className={`card ${featured ? 'border-2 border-blue-200 dark:border-blue-800' : ''}`}>
       <div className="card-content space-y-4">
@@ -96,10 +33,7 @@ function PostCard({ post, featured = false }: { post: BlogPost & { readingTime: 
               {formatDate(new Date(post.publishedAt))}
             </div>
           )}
-          <div className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
-            {post.readingTime} min read
-          </div>
+          <ReadingTime minutes={post.readingTime} showIcon={true} />
           <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-xs">
             {post.category}
           </span>
@@ -143,14 +77,10 @@ function PostCard({ post, featured = false }: { post: BlogPost & { readingTime: 
 }
 
 export default async function BlogPage() {
-  const posts = await getBlogPosts()
+  const posts = await getPosts({ published: true })
   
   // Add calculated fields to posts
-  const postsWithMetadata = posts.map(post => ({
-    ...post,
-    readingTime: calculateReadingTime(post.content),
-    category: getCategory(post.tags)
-  }))
+  const postsWithMetadata = addMetadataToPosts(posts)
   
   const featuredPosts = postsWithMetadata.filter(post => post.featured)
   const otherPosts = postsWithMetadata.filter(post => !post.featured)
@@ -168,6 +98,10 @@ export default async function BlogPage() {
               Thoughts on AI automation, auction industry trends, and building systems 
               that let you focus on what matters most.
             </p>
+            <div className="flex flex-col items-center gap-6 mb-8">
+              <RSSSubscribeButton />
+              <RSSLinks />
+            </div>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <span className="px-4 py-2 bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 rounded-full">
                 🤖 AI Automation

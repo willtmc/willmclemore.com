@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   creator: SITE_CONFIG.author,
   publisher: SITE_CONFIG.author,
   metadataBase: new URL(SITE_CONFIG.url),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -66,6 +69,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" />
+        <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/api/rss?format=atom" />
+        <link rel="alternate" type="application/feed+json" title="JSON Feed" href="/api/rss?format=json" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"

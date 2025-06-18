@@ -1,0 +1,251 @@
+---
+title: "Syntax Highlighting Demo"
+slug: "syntax-highlighting-demo"
+excerpt: "Showcasing our beautiful syntax highlighting with prism-react-renderer"
+date: "2025-01-17"
+tags: 
+  - "code"
+  - "syntax-highlighting"
+  - "mdx"
+featured: false
+---
+
+# Syntax Highlighting Examples
+
+This post demonstrates the syntax highlighting capabilities of our blog. We support multiple languages with beautiful themes that adapt to light and dark modes.
+
+## JavaScript Example
+
+```javascript
+// Function to calculate Fibonacci sequence
+function fibonacci(n) {
+  if (n <= 1) return n;
+  
+  const sequence = [0, 1];
+  
+  for (let i = 2; i <= n; i++) {
+    sequence[i] = sequence[i - 1] + sequence[i - 2];
+  }
+  
+  return sequence[n];
+}
+
+console.log(fibonacci(10)); // Output: 55
+```
+
+## TypeScript with React
+
+```tsx
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  onClick?: () => void;
+  children: React.ReactNode;
+}
+
+export const Button: React.FC<ButtonProps> = ({ 
+  variant = 'primary',
+  size = 'md',
+  onClick,
+  children 
+}) => {
+  const baseStyles = 'font-medium rounded-lg transition-colors';
+  
+  const variants = {
+    primary: 'bg-blue-600 text-white hover:bg-blue-700',
+    secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
+    danger: 'bg-red-600 text-white hover:bg-red-700'
+  };
+  
+  const sizes = {
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-4 py-2',
+    lg: 'px-6 py-3 text-lg'
+  };
+  
+  return (
+    <button
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+```
+
+## Python Example
+
+```python
+import asyncio
+from typing import List, Optional
+
+class TaskQueue:
+    """An async task queue implementation"""
+    
+    def __init__(self, max_workers: int = 5):
+        self.queue = asyncio.Queue()
+        self.workers = []
+        self.max_workers = max_workers
+    
+    async def add_task(self, task: callable, *args, **kwargs):
+        await self.queue.put((task, args, kwargs))
+    
+    async def worker(self):
+        while True:
+            task, args, kwargs = await self.queue.get()
+            try:
+                await task(*args, **kwargs)
+            except Exception as e:
+                print(f"Task failed: {e}")
+            finally:
+                self.queue.task_done()
+    
+    async def start(self):
+        self.workers = [
+            asyncio.create_task(self.worker()) 
+            for _ in range(self.max_workers)
+        ]
+        
+    async def stop(self):
+        await self.queue.join()
+        for worker in self.workers:
+            worker.cancel()
+```
+
+## CSS with Modern Features
+
+```css
+/* Modern CSS Grid Layout */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  
+  /* CSS Custom Properties */
+  --primary-color: #3b82f6;
+  --secondary-color: #10b981;
+  --text-color: #1f2937;
+  --bg-color: #ffffff;
+}
+
+/* Dark mode with CSS variables */
+@media (prefers-color-scheme: dark) {
+  .container {
+    --text-color: #f3f4f6;
+    --bg-color: #111827;
+  }
+}
+
+/* Modern animations */
+.card {
+  background: var(--bg-color);
+  color: var(--text-color);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  }
+}
+```
+
+## Bash/Shell Commands
+
+```bash
+#!/bin/bash
+
+# Deploy script with error handling
+set -e
+
+echo "🚀 Starting deployment..."
+
+# Build the project
+npm run build
+
+# Run tests
+npm test
+
+# Deploy to production
+if [ "$1" == "production" ]; then
+    echo "📦 Deploying to production..."
+    git push origin main
+    echo "✅ Production deployment complete!"
+else
+    echo "📦 Deploying to staging..."
+    git push staging develop
+    echo "✅ Staging deployment complete!"
+fi
+```
+
+## SQL Query
+
+```sql
+-- Complex query with CTEs and window functions
+WITH monthly_sales AS (
+  SELECT 
+    DATE_TRUNC('month', order_date) as month,
+    product_id,
+    SUM(quantity * unit_price) as revenue,
+    COUNT(DISTINCT customer_id) as unique_customers
+  FROM orders
+  WHERE order_date >= DATEADD(year, -1, CURRENT_DATE)
+  GROUP BY 1, 2
+),
+ranked_products AS (
+  SELECT 
+    month,
+    product_id,
+    revenue,
+    unique_customers,
+    RANK() OVER (PARTITION BY month ORDER BY revenue DESC) as revenue_rank,
+    LAG(revenue) OVER (PARTITION BY product_id ORDER BY month) as prev_month_revenue
+  FROM monthly_sales
+)
+SELECT 
+  rp.*,
+  p.product_name,
+  COALESCE(
+    ((rp.revenue - rp.prev_month_revenue) / NULLIF(rp.prev_month_revenue, 0)) * 100,
+    0
+  ) as growth_percentage
+FROM ranked_products rp
+JOIN products p ON rp.product_id = p.id
+WHERE rp.revenue_rank <= 10
+ORDER BY rp.month DESC, rp.revenue_rank;
+```
+
+## Using Custom Code Components
+
+You can also use the custom CodeBlock components directly in MDX:
+
+<CodeBlockWithLineNumbers showLineNumbers={true} highlightLines={[3, 4, 5]} title="highlight-example.js">
+{`function highlightExample() {
+  const normal = "This line is normal";
+  const highlighted = "This line is highlighted";
+  const alsoHighlighted = "This one too!";
+  const anotherHighlight = "And this one!";
+  const backToNormal = "This line is normal again";
+}`}
+</CodeBlockWithLineNumbers>
+
+## Inline Code
+
+Don't forget about inline code! You can use `const variable = "value"` or `npm install package-name` directly in your text.
+
+## Conclusion
+
+Our syntax highlighting system provides:
+
+- 🎨 Beautiful themes for light and dark modes
+- 📋 Copy button for easy code sharing
+- 🔢 Optional line numbers
+- 🎯 Line highlighting
+- 🏷️ Language labels
+- 📱 Responsive design
+
+Try it in your own blog posts!

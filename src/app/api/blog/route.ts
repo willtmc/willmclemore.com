@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { parseBlogContent, validateFrontmatter } from '@/lib/blog-content'
 
 export async function GET(request: NextRequest) {
   try {
@@ -60,10 +61,35 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { title, content, excerpt, tags, featured, published, coverImage, seoTitle, seoDescription } = body
+    let { title, content, excerpt, tags, featured, published, coverImage, seoTitle, seoDescription } = body
 
-    // Generate slug from title
-    const slug = title
+    // Check if content has frontmatter
+    const { content: parsedContent, frontmatter, hasValidFrontmatter } = parseBlogContent(content)
+
+    // If frontmatter exists, use it to override/supplement the provided data
+    if (hasValidFrontmatter) {
+      title = frontmatter.title || title
+      excerpt = frontmatter.excerpt || excerpt
+      tags = Array.isArray(frontmatter.tags) ? frontmatter.tags.join(', ') : (frontmatter.tags || tags)
+      featured = frontmatter.featured !== undefined ? frontmatter.featured : featured
+      coverImage = frontmatter.coverImage || coverImage
+      seoTitle = frontmatter.seoTitle || seoTitle
+      seoDescription = frontmatter.seoDescription || seoDescription
+      
+      // Update content to remove frontmatter
+      content = parsedContent
+    }
+
+    // Validate required fields
+    if (!title) {
+      return NextResponse.json(
+        { error: 'Title is required' },
+        { status: 400 }
+      )
+    }
+
+    // Generate slug from title or frontmatter
+    const slug = (frontmatter.slug || title)
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '')

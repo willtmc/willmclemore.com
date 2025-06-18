@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { parseBlogContent, extractBlogPostData } from '@/lib/blog-content'
 
 export async function GET(
   request: NextRequest,
@@ -40,7 +41,7 @@ export async function PUT(
   try {
     const { slug: paramSlug } = await params
     const body = await request.json()
-    const { title, content, excerpt, tags, featured, published, coverImage, seoTitle, seoDescription } = body
+    let { title, content, excerpt, tags, featured, published, coverImage, seoTitle, seoDescription } = body
 
     // Find the post first
     const existingPost = await prisma.blogPost.findFirst({
@@ -57,6 +58,25 @@ export async function PUT(
         { error: 'Blog post not found' },
         { status: 404 }
       )
+    }
+
+    // Check if content has frontmatter
+    if (content) {
+      const { content: parsedContent, frontmatter, hasValidFrontmatter } = parseBlogContent(content)
+
+      // If frontmatter exists, use it to override/supplement the provided data
+      if (hasValidFrontmatter) {
+        title = frontmatter.title || title
+        excerpt = frontmatter.excerpt || excerpt
+        tags = Array.isArray(frontmatter.tags) ? frontmatter.tags.join(', ') : (frontmatter.tags || tags)
+        featured = frontmatter.featured !== undefined ? frontmatter.featured : featured
+        coverImage = frontmatter.coverImage || coverImage
+        seoTitle = frontmatter.seoTitle || seoTitle
+        seoDescription = frontmatter.seoDescription || seoDescription
+        
+        // Update content to remove frontmatter
+        content = parsedContent
+      }
     }
 
     // Generate new slug if title changed

@@ -1,0 +1,90 @@
+---
+title: "Using Frontmatter in Blog Posts"
+slug: "using-frontmatter-in-blog-posts"
+excerpt: "Learn how to use frontmatter in your blog posts for better content management"
+date: "2025-01-17"
+publishedAt: "2025-01-17T10:00:00Z"
+tags: 
+  - "mdx"
+  - "frontmatter"
+  - "blogging"
+  - "content-management"
+featured: true
+coverImage: "https://images.unsplash.com/photo-1542831371-29b0f74f9713"
+seoTitle: "Complete Guide to Using Frontmatter in MDX Blog Posts"
+seoDescription: "Discover how frontmatter enhances your blog posts with metadata, making content management easier and SEO-friendly"
+author: "Will McLemore"
+---
+
+# Introduction to Frontmatter
+
+Frontmatter is a powerful way to add metadata to your blog posts. It's written in YAML format at the beginning of your markdown or MDX files, separated by triple dashes.
+
+## Benefits of Using Frontmatter
+
+1. **Structured Metadata**: Keep all your post metadata in one place
+2. **SEO Optimization**: Easily manage SEO titles and descriptions
+3. **Content Organization**: Use tags and categories to organize your content
+4. **Flexibility**: Add custom fields as needed
+
+## Example Frontmatter Structure
+
+```yaml
+---
+title: "Your Post Title"
+date: "2025-01-17"
+tags: 
+  - "tag1"
+  - "tag2"
+featured: true
+---
+```
+
+## How It Works in This Blog
+
+When you create a blog post with frontmatter:
+
+1. The system automatically extracts the metadata
+2. The frontmatter values override any form fields
+3. The content below the frontmatter is rendered as MDX
+
+### Custom Components
+
+You can use React components in your MDX content:
+
+<div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg my-4">
+  <p className="text-blue-800 dark:text-blue-200">
+    This is a custom styled div component inside MDX!
+  </p>
+</div>
+
+### Code Highlighting
+
+```javascript
+// Syntax highlighting works out of the box
+function extractFrontmatter(content) {
+  const { data, content: mdxContent } = matter(content)
+  return {
+    metadata: data,
+    content: mdxContent
+  }
+}
+```
+
+## Best Practices
+
+- Always include a title in your frontmatter
+- Use ISO date format for dates (YYYY-MM-DD)
+- Keep tags lowercase and hyphenated
+- Add SEO metadata for better search visibility
+
+## Conclusion
+
+Frontmatter makes content management much easier by separating metadata from content. It's especially useful when:
+
+- Managing multiple blog posts
+- Implementing SEO best practices
+- Organizing content with tags and categories
+- Adding custom metadata fields
+
+Try creating your own blog post with frontmatter to see how it enhances your content workflow!
