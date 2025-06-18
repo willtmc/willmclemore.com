@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateRSS, generateAtom, generateJSON } from '@/lib/rss'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 300 // Cache for 5 minutes
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams

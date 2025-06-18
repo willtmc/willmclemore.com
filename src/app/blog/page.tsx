@@ -6,6 +6,10 @@ import { getPosts, addMetadataToPosts, formatDate } from '@/lib/blog'
 import { ReadingTime, ReadingTimeBadge } from '@/components/ReadingTime'
 import { RSSLinks, RSSSubscribeButton } from '@/components/RSSLinks'
 
+// Force dynamic rendering to avoid build-time API calls
+export const dynamic = 'force-dynamic'
+export const revalidate = 60 // Revalidate every minute
+
 export const metadata: Metadata = {
   title: 'Blog - Will McLemore',
   description: 'Insights on AI automation, auction industry trends, and building automated business systems.',

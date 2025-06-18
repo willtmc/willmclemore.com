@@ -8,6 +8,10 @@ import { MDXContent } from '@/components/MDXContent'
 import { extractBlogPostData } from '@/lib/blog-content'
 import { ReadingTime } from '@/components/ReadingTime'
 
+// Force dynamic rendering for individual blog posts
+export const dynamic = 'force-dynamic'
+export const revalidate = 60 // Revalidate every minute
+
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params

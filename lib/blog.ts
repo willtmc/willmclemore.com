@@ -1,5 +1,6 @@
 import { BlogPost, BlogPostWithMetadata } from '@/types/blog'
 import readingTime from 'reading-time'
+import { prisma } from '@/lib/prisma'
 
 export async function getPosts(options?: {
   published?: boolean
@@ -8,33 +9,19 @@ export async function getPosts(options?: {
   page?: number
 }): Promise<BlogPost[]> {
   try {
-    const params = new URLSearchParams()
-    
-    if (options?.published !== undefined) {
-      params.append('published', String(options.published))
-    }
-    if (options?.featured !== undefined) {
-      params.append('featured', String(options.featured))
-    }
-    if (options?.limit !== undefined) {
-      params.append('limit', String(options.limit))
-    }
-    if (options?.page !== undefined) {
-      params.append('page', String(options.page))
+    const where = {
+      published: options?.published ?? true,
+      ...(options?.featured !== undefined && { featured: options.featured })
     }
     
-    const url = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/blog${params.toString() ? `?${params.toString()}` : ''}`
-    
-    const res = await fetch(url, {
-      next: { revalidate: 60 } // Cache for 1 minute
+    const posts = await prisma.blogPost.findMany({
+      where,
+      orderBy: { publishedAt: 'desc' },
+      take: options?.limit,
+      skip: options?.page ? (options.page - 1) * (options?.limit || 10) : 0,
     })
     
-    if (!res.ok) {
-      throw new Error('Failed to fetch posts')
-    }
-    
-    const data = await res.json()
-    return data.posts as BlogPost[]
+    return posts
   } catch (error) {
     console.error('Error fetching blog posts:', error)
     return []
@@ -43,16 +30,16 @@ export async function getPosts(options?: {
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/blog/${slug}`,
-      { next: { revalidate: 60 } }
-    )
+    const post = await prisma.blogPost.findFirst({
+      where: {
+        OR: [
+          { slug: slug },
+          { id: slug }
+        ]
+      }
+    })
     
-    if (!res.ok) {
-      return null
-    }
-    
-    return await res.json()
+    return post
   } catch (error) {
     console.error('Error fetching blog post:', error)
     return null

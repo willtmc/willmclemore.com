@@ -1,5 +1,8 @@
 import { generateRSS } from '@/lib/rss'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 300 // Cache for 5 minutes
+
 export async function GET() {
   try {
     const content = await generateRSS({ limit: 50, includeContent: true })
