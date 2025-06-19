@@ -87,6 +87,9 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   return response.json()
 }
 
+// Alias for compatibility
+export const getPostBySlug = getPost
+
 export function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -99,6 +102,22 @@ export function calculateReadingTime(content: string): number {
   const wordsPerMinute = 200
   const wordCount = content.trim().split(/\s+/).length
   return Math.max(1, Math.ceil(wordCount / wordsPerMinute))
+}
+
+export function getReadingTimeStats(content: string): {
+  minutes: number
+  words: number
+  time: string
+} {
+  const wordCount = content.trim().split(/\s+/).length
+  const minutes = Math.max(1, Math.ceil(wordCount / 200))
+  const time = minutes === 1 ? '1 min read' : `${minutes} min read`
+  
+  return {
+    minutes,
+    words: wordCount,
+    time
+  }
 }
 
 export function addMetadataToPosts(posts: BlogPost[]): BlogPostWithMetadata[] {
