@@ -9,7 +9,7 @@ restartPolicyMaxRetries = 3
 startCommand = "npm run railway:start"
 
 [deploy.domains]
-"willmclemore.com" = { port = 8080 }
+"willmclemore.com" = { }
 
 [environments.production]
 [environments.production.variables]
