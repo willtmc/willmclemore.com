@@ -35,7 +35,8 @@ export async function getPosts(options: GetPostsOptions = {}): Promise<BlogPost[
     params.set('featured', featured.toString())
   }
 
-  const response = await fetch(`/api/blog?${params}`, {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://willmclemore.com'
+  const response = await fetch(`${baseUrl}/api/blog?${params}`, {
     cache: 'no-store'
   })
 
@@ -64,7 +65,8 @@ export async function getPostsWithPagination(options: GetPostsOptions = {}): Pro
     params.set('featured', featured.toString())
   }
 
-  const response = await fetch(`/api/blog?${params}`, {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://willmclemore.com'
+  const response = await fetch(`${baseUrl}/api/blog?${params}`, {
     cache: 'no-store'
   })
 
@@ -76,7 +78,8 @@ export async function getPostsWithPagination(options: GetPostsOptions = {}): Pro
 }
 
 export async function getPost(slug: string): Promise<BlogPost | null> {
-  const response = await fetch(`/api/blog/${slug}`, {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://willmclemore.com'
+  const response = await fetch(`${baseUrl}/api/blog/${slug}`, {
     cache: 'no-store'
   })
 

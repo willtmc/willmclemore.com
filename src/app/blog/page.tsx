@@ -90,12 +90,27 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = Number(params?.page) || 1
   const pageSize = 10
   
-  // Get paginated posts
-  const { posts, pagination } = await getPostsWithPagination({ 
-    published: true,
+  let posts: any[] = []
+  let pagination = {
     page: currentPage,
-    pageSize
-  })
+    pageSize,
+    total: 0,
+    totalPages: 0
+  }
+  
+  try {
+    // Get paginated posts
+    const result = await getPostsWithPagination({ 
+      published: true,
+      page: currentPage,
+      pageSize
+    })
+    posts = result.posts
+    pagination = result.pagination
+  } catch (error) {
+    console.error('Failed to fetch blog posts:', error)
+    // Continue with empty posts array
+  }
   
   // Add calculated fields to posts
   const postsWithMetadata = addMetadataToPosts(posts)
