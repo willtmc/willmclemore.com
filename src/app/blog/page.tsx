@@ -2,9 +2,10 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { Calendar, Clock, ArrowRight, Tag, Mail, Rss } from 'lucide-react'
 import { BlogPostWithMetadata } from '@/types/blog'
-import { getPosts, addMetadataToPosts, formatDate } from '@/lib/blog'
+import { getPostsWithPagination, addMetadataToPosts, formatDate } from '@/lib/blog'
 import { ReadingTime, ReadingTimeBadge } from '@/components/ReadingTime'
 import { RSSLinks, RSSSubscribeButton } from '@/components/RSSLinks'
+import { Pagination } from '@/components/Pagination'
 
 // Force dynamic rendering to avoid build-time API calls
 export const dynamic = 'force-dynamic'
@@ -80,8 +81,21 @@ function PostCard({ post, featured = false }: { post: BlogPostWithMetadata, feat
   )
 }
 
-export default async function BlogPage() {
-  const posts = await getPosts({ published: true })
+interface BlogPageProps {
+  searchParams: Promise<{ page?: string }>
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const params = await searchParams
+  const currentPage = Number(params?.page) || 1
+  const pageSize = 10
+  
+  // Get paginated posts
+  const { posts, pagination } = await getPostsWithPagination({ 
+    published: true,
+    page: currentPage,
+    pageSize
+  })
   
   // Add calculated fields to posts
   const postsWithMetadata = addMetadataToPosts(posts)
@@ -124,8 +138,8 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* Featured Posts */}
-      {featuredPosts.length > 0 && (
+      {/* Featured Posts - Only show on first page */}
+      {currentPage === 1 && featuredPosts.length > 0 && (
         <section className="section-sm">
           <div className="container">
             <div className="max-w-6xl mx-auto">
@@ -144,10 +158,25 @@ export default async function BlogPage() {
       <section className="section bg-slate-50 dark:bg-slate-900">
         <div className="container">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">All Posts</h2>
-            {posts.length === 0 ? (
+            <h2 className="text-3xl font-bold text-center mb-12">
+              {currentPage === 1 ? 'All Posts' : `All Posts - Page ${currentPage}`}
+            </h2>
+            {posts.length === 0 && currentPage === 1 ? (
               <div className="text-center py-12">
                 <p className="text-slate-600 dark:text-slate-400 mb-4">No blog posts yet. Check back soon!</p>
+              </div>
+            ) : posts.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-slate-600 dark:text-slate-400 mb-4">No posts on this page.</p>
+                <Link href="/blog" className="text-blue-600 hover:underline">
+                  Go back to page 1
+                </Link>
+              </div>
+            ) : currentPage > 1 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {postsWithMetadata.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
               </div>
             ) : otherPosts.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -160,6 +189,13 @@ export default async function BlogPage() {
                 <p className="text-slate-600 dark:text-slate-400">All posts are currently featured above.</p>
               </div>
             )}
+            
+            {/* Pagination */}
+            <Pagination 
+              currentPage={currentPage}
+              totalPages={pagination.totalPages}
+              basePath="/blog"
+            />
           </div>
         </div>
       </section>

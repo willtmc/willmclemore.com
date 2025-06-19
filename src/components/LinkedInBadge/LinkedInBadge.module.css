@@ -1,0 +1,285 @@
+.badgeWrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.linkedinBadge {
+  width: 100%;
+  position: relative;
+  background-color: var(--card);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Size variations */
+.small {
+  max-width: 280px;
+}
+
+.medium {
+  max-width: 350px;
+}
+
+.large {
+  max-width: 420px;
+}
+
+/* Theme variations */
+.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Loading state */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 1rem;
+  color: var(--muted-foreground);
+}
+
+.loadingIcon {
+  width: 2rem;
+  height: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1rem;
+  text-align: center;
+}
+
+.errorMessage {
+  color: var(--destructive);
+  font-weight: 500;
+}
+
+.fallbackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0a66c2;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.fallbackLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Badge container */
+.badgeContainer {
+  width: 100%;
+}
+
+/* Custom profile styles */
+.customProfile {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profileHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.profileImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileImagePlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #0a66c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkedinIcon {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.profileInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: var(--foreground);
+}
+
+.profileHeadline {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 0 0 0.25rem 0;
+}
+
+.profileCompany {
+  font-size: 0.875rem;
+  color: var(--foreground);
+  margin: 0 0 0.25rem 0;
+}
+
+.profileLocation {
+  font-size: 0.813rem;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.profileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.viewProfileButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #0a66c2;
+  color: white;
+  border-radius: 24px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.viewProfileButton:hover {
+  background-color: #004182;
+}
+
+.externalIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.connections {
+  font-size: 0.813rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+/* Connect button */
+.connectButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background-color: #0a66c2;
+  color: white;
+  border-radius: 24px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.connectButton:hover {
+  background-color: #004182;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Share button */
+.shareButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: #0a66c2;
+  border: 1px solid #0a66c2;
+  border-radius: 24px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.shareButton:hover {
+  background-color: #0a66c2;
+  color: white;
+}
+
+.buttonIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .profileHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .profileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profileActions {
+    align-items: center;
+  }
+  
+  .linkedinBadge {
+    border-radius: 0.5rem;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .fallbackLink {
+    color: #70b5f9;
+  }
+  
+  .dark .customProfile {
+    background-color: #1a1a1a;
+  }
+}

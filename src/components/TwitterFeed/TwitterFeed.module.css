@@ -1,0 +1,131 @@
+.twitterFeedWrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.feedTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+  text-align: center;
+}
+
+.twitterFeed {
+  width: 100%;
+  position: relative;
+  min-height: 200px;
+  background-color: var(--card);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 1rem;
+  color: var(--muted-foreground);
+}
+
+.loadingIcon {
+  width: 2rem;
+  height: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.errorMessage {
+  color: var(--destructive);
+  font-weight: 500;
+}
+
+.errorHint {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.embedContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+}
+
+/* Responsive Twitter widget styling */
+.embedContainer > * {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Override Twitter's iframe styling for better responsive behavior */
+.embedContainer iframe {
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .twitterFeedWrapper {
+    padding: 0 1rem;
+  }
+  
+  .feedTitle {
+    font-size: 1.125rem;
+  }
+  
+  .twitterFeed {
+    border-radius: 0.5rem;
+  }
+  
+  .loadingContainer,
+  .errorContainer {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .twitterFeed {
+    background-color: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Container width constraints */
+.twitterFeedWrapper.narrow {
+  max-width: 550px;
+}
+
+.twitterFeedWrapper.medium {
+  max-width: 700px;
+}
+
+.twitterFeedWrapper.wide {
+  max-width: 900px;
+}
+
+.twitterFeedWrapper.full {
+  max-width: 100%;
+}
