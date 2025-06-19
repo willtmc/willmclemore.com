@@ -19,7 +19,7 @@ export interface BlogPostWithMetadata extends BlogPost {
   readingTimeStats: {
     text: string
     minutes: number
-    time: number
+    time: string
     words: number
   }
   category: string

@@ -49,7 +49,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 export interface ReadingTimeResult {
   text: string
   minutes: number
-  time: number
+  time: string
   words: number
 }
 
@@ -59,7 +59,13 @@ export function calculateReadingTime(content: string): number {
 }
 
 export function getReadingTimeStats(content: string): ReadingTimeResult {
-  return readingTime(content)
+  const stats = readingTime(content)
+  return {
+    text: stats.text,
+    minutes: stats.minutes,
+    time: stats.text, // Use text as time for compatibility
+    words: stats.words
+  }
 }
 
 export function getCategory(tags: string | null): string {
