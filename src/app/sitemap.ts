@@ -19,18 +19,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })
   
   // Get all published projects
-  const projects = await prisma.project.findMany({
-    where: {
-      published: true
-    },
-    select: {
-      slug: true,
-      updatedAt: true,
-    },
-    orderBy: {
-      updatedAt: 'desc'
-    }
-  })
+  // TODO: ProjectShowcase model doesn't have a slug field yet
+  // const projects = await prisma.projectShowcase.findMany({
+  //   where: {
+  //     featured: true
+  //   },
+  //   select: {
+  //     id: true,
+  //     updatedAt: true,
+  //   },
+  //   orderBy: {
+  //     updatedAt: 'desc'
+  //   }
+  // })
   
   // Static pages
   const staticPages = [
@@ -75,12 +76,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
   
   // Project pages
-  const projectPages = projects.map((project) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: project.updatedAt,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }))
+  // TODO: Enable when ProjectShowcase has slug support
+  // const projectPages = projects.map((project) => ({
+  //   url: `${baseUrl}/projects/${project.id}`,
+  //   lastModified: project.updatedAt,
+  //   changeFrequency: 'monthly' as const,
+  //   priority: 0.6,
+  // }))
   
-  return [...staticPages, ...blogPages, ...projectPages]
+  return [...staticPages, ...blogPages]
 }
