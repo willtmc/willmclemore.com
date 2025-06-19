@@ -121,11 +121,15 @@ export function getReadingTimeStats(content: string): {
 }
 
 export function addMetadataToPosts(posts: BlogPost[]): BlogPostWithMetadata[] {
-  return posts.map(post => ({
-    ...post,
-    readingTime: calculateReadingTime(post.content),
-    category: determineCategory(post)
-  }))
+  return posts.map(post => {
+    const readingTimeStats = getReadingTimeStats(post.content)
+    return {
+      ...post,
+      readingTime: readingTimeStats.minutes,
+      readingTimeStats,
+      category: determineCategory(post)
+    }
+  })
 }
 
 function determineCategory(post: BlogPost): string {
