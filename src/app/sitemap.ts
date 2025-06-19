@@ -4,19 +4,25 @@ import { prisma } from '@/lib/prisma'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://willmclemore.com'
   
-  // Get all published blog posts
-  const blogPosts = await prisma.blogPost.findMany({
-    where: {
-      published: true
-    },
-    select: {
-      slug: true,
-      updatedAt: true,
-    },
-    orderBy: {
-      updatedAt: 'desc'
-    }
-  })
+  let blogPosts: Array<{ slug: string; updatedAt: Date }> = []
+  
+  // Try to get blog posts, but don't fail if database is unavailable
+  try {
+    blogPosts = await prisma.blogPost.findMany({
+      where: {
+        published: true
+      },
+      select: {
+        slug: true,
+        updatedAt: true,
+      },
+      orderBy: {
+        updatedAt: 'desc'
+      }
+    })
+  } catch (error) {
+    console.log('Could not fetch blog posts for sitemap, using static pages only')
+  }
   
   // Get all published projects
   // TODO: ProjectShowcase model doesn't have a slug field yet
