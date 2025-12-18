@@ -28,20 +28,20 @@ export function Navigation() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700">
+    <nav className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
       <div className="container">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link 
             href="/" 
-            className="text-xl font-bold gradient-text hover:opacity-80 transition-opacity"
+            className="text-lg font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             {SITE_CONFIG.name}
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {NAVIGATION_ITEMS.map((item) => (
+          <div className="hidden md:flex items-center space-x-6">
+            {NAVIGATION_ITEMS.filter(item => item.href !== '/').map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -59,38 +59,40 @@ export function Navigation() {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-md text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="Toggle theme"
             >
               {getThemeIcon()}
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile */}
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-md text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="Toggle theme"
             >
               {getThemeIcon()}
             </button>
             
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+            {NAVIGATION_ITEMS.length > 1 && (
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            )}
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
+        {isOpen && NAVIGATION_ITEMS.length > 1 && (
           <div className="md:hidden py-4 border-t border-slate-200 dark:border-slate-700">
             <div className="flex flex-col space-y-2">
-              {NAVIGATION_ITEMS.map((item) => (
+              {NAVIGATION_ITEMS.filter(item => item.href !== '/').map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -111,4 +113,4 @@ export function Navigation() {
       </div>
     </nav>
   )
-} 
+}

@@ -1,11 +1,11 @@
 export const SITE_CONFIG = {
   name: 'Will McLemore',
-  title: 'Will McLemore - Technology Leader & Strategic Consultant',
-  description: 'Auctioneer × AI Automation. President of McLemore Auction Company building automated systems for the auction industry.',
+  title: 'Will McLemore',
+  description: 'Auctioneer, builder, automator. President of McLemore Auction Company in Nashville.',
   url: process.env.SITE_URL || 'https://willmclemore.com',
   author: 'Will McLemore',
   email: 'will@mclemoreauction.com',
-  keywords: ['Will McLemore', 'Technology Leader', 'Strategic Consultant', 'Startup Advisor', 'Innovation', 'Technical Consulting'],
+  keywords: ['Will McLemore', 'McLemore Auction Company', 'Nashville Auctioneer', 'Auction Technology'],
   social: {
     twitter: 'https://twitter.com/willtmc',
     linkedin: 'https://linkedin.com/in/willmclemore',
@@ -17,11 +17,6 @@ export const SITE_CONFIG = {
 
 export const NAVIGATION_ITEMS = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
-  { name: 'Admin', href: '/admin' }, // TODO: Add authentication
 ]
 
 export const PROJECT_TYPES = [
