@@ -45,6 +45,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      // Handle .md extension for blog posts - route to markdown API
+      {
+        source: '/blog/:slug.md',
+        destination: '/api/markdown/blog/:slug',
+      },
+      // Handle .md extension for static pages
+      {
+        source: '/:page.md',
+        destination: '/api/markdown/:page',
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({

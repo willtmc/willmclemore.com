@@ -73,6 +73,8 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" />
         <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/api/rss?format=atom" />
         <link rel="alternate" type="application/feed+json" title="JSON Feed" href="/api/rss?format=json" />
+        {/* AI agent discovery - see https://dri.es/the-third-audience */}
+        <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLMs.txt - AI Agent Content Index" />
       </head>
       <body className={inter.className}>
         <ThemeProvider

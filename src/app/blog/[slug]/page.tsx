@@ -26,6 +26,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.seoTitle || `${post.title} - Will McLemore`,
     description: post.seoDescription || post.excerpt || 'Read this blog post by Will McLemore',
+    alternates: {
+      types: {
+        'text/markdown': `/blog/${slug}.md`,
+      },
+    },
     openGraph: {
       title: post.seoTitle || post.title,
       description: post.seoDescription || post.excerpt || 'Read this blog post by Will McLemore',
