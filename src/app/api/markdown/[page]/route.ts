@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { detectCrawler, logCrawlerHit } from '@/lib/crawler-tracking'
 
 // Static page content as markdown (extracted from page components)
 const STATIC_PAGES: Record<string, { title: string; description: string; content: string }> = {
@@ -107,7 +108,16 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ page: string }> }
 ) {
+  // Track AI crawler hits
+  const userAgent = request.headers.get('user-agent') || ''
+  const crawler = detectCrawler(userAgent)
+  
   const { page } = await params
+  
+  if (crawler) {
+    logCrawlerHit(crawler, `/${page}.md`, userAgent)
+  }
+
   const pageData = STATIC_PAGES[page]
 
   if (!pageData) {

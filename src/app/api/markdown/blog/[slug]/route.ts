@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getPostBySlug, formatDate } from '@/lib/blog'
+import { detectCrawler, logCrawlerHit } from '@/lib/crawler-tracking'
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  // Track AI crawler hits
+  const userAgent = request.headers.get('user-agent') || ''
+  const crawler = detectCrawler(userAgent)
+
   const { slug } = await params
+  
+  if (crawler) {
+    logCrawlerHit(crawler, `/blog/${slug}.md`, userAgent)
+  }
+
   const post = await getPostBySlug(slug)
 
   if (!post) {
@@ -17,11 +27,14 @@ export async function GET(
     })
   }
 
-  // Build frontmatter
+  // Build frontmatter - handle publishedAt being Date, string, or null
+  const publishedDate = post.publishedAt 
+    ? (post.publishedAt instanceof Date ? post.publishedAt.toISOString() : String(post.publishedAt))
+    : null
   const frontmatter = [
     '---',
     `title: '${post.title.replace(/'/g, "''")}'`,
-    post.publishedAt ? `date: '${post.publishedAt.toISOString()}'` : null,
+    publishedDate ? `date: '${publishedDate}'` : null,
     `author: Will McLemore`,
     post.excerpt ? `summary: '${post.excerpt.replace(/'/g, "''")}'` : null,
     post.coverImage ? `image: ${post.coverImage}` : null,

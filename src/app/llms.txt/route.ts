@@ -1,10 +1,18 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { getPosts } from '@/lib/blog'
+import { detectCrawler, logCrawlerHit } from '@/lib/crawler-tracking'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600 // Revalidate every hour
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Track AI crawler hits
+  const userAgent = request.headers.get('user-agent') || ''
+  const crawler = detectCrawler(userAgent)
+  if (crawler) {
+    logCrawlerHit(crawler, '/llms.txt', userAgent)
+  }
+
   const posts = await getPosts({ published: true })
 
   const llmsTxt = `# Will McLemore
