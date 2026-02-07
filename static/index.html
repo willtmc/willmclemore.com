@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will McLemore — Auctioneer, Builder, Automator</title>
+  <meta name="description" content="Auctioneer, builder, automator. President of McLemore Auction Company in Nashville, Tennessee.">
+  <meta property="og:title" content="Will McLemore">
+  <meta property="og:description" content="Auctioneer, builder, automator. President of McLemore Auction Company.">
+  <meta property="og:image" content="https://willmclemore.com/will-mclemore.jpg">
+  <meta property="og:url" content="https://willmclemore.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Will McLemore">
+  <meta name="twitter:description" content="Auctioneer, builder, automator.">
+  <meta name="twitter:image" content="https://willmclemore.com/will-mclemore.jpg">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔨</text></svg>">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Will McLemore",
+    "jobTitle": "President",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "McLemore Auction Company",
+      "url": "https://mclemoreauction.com"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Yale University"
+    },
+    "url": "https://willmclemore.com",
+    "sameAs": [
+      "https://www.linkedin.com/in/willmclemore",
+      "https://mclemoreauction.com"
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-dim: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 5rem 0 3rem;
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .photo {
+      flex-shrink: 0;
+      width: 180px;
+      height: 180px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .intro h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+
+    .intro p {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .intro a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .intro a:hover { text-decoration: underline; }
+
+    /* Sections */
+    .section {
+      padding: 3rem 0;
+    }
+
+    .section-alt {
+      background: var(--surface-alt);
+      padding: 3rem 0;
+      margin: 0 -100vw;
+      padding-left: 100vw;
+      padding-right: 100vw;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .prose p {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .prose strong { color: var(--text); }
+
+    .prose .quote {
+      color: #94a3b8;
+      font-style: italic;
+      margin-top: 1.5rem;
+    }
+
+    /* Projects grid */
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .project {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .project:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .project-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface-alt);
+      border-radius: 10px;
+    }
+
+    .project-info { flex: 1; }
+
+    .project-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .project-arrow {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      transition: color 0.15s;
+    }
+
+    .project:hover .project-arrow { color: var(--accent); }
+
+    /* Working on cards */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Contact */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .contact-link:hover { opacity: 0.85; }
+
+    .contact-link.primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .contact-link.secondary {
+      background: var(--surface-alt);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 3rem 0 2rem;
+      }
+      .photo { width: 150px; height: 150px; }
+      .cards { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    /* Overflow fix for section-alt */
+    .wrapper { overflow: hidden; }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="photo">
+        <img src="/will-mclemore.jpg" alt="Will McLemore" width="180" height="180">
+      </div>
+      <div class="intro">
+        <h1>Will McLemore</h1>
+        <div class="tagline">Auctioneer. Builder. Automator.</div>
+        <p>I've run <a href="https://mclemoreauction.com" target="_blank">McLemore Auction Company</a> in Nashville for nearly 20 years. We sell everything from estates to industrial equipment to real estate. I'm also building AI systems to automate the parts of this business that shouldn't require a human.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- The Path Here -->
+  <div class="section-alt">
+    <div class="container">
+      <section class="section" style="padding:0;">
+        <h2>The Path Here</h2>
+        <div class="prose">
+          <p>I studied English at Yale, which taught me to read carefully and write clearly — skills that turned out to matter more than anything else I learned.</p>
+          <p>After graduation, I got a taste of the auction world at <strong>Sotheby's</strong> in New York. Then I spent five years at <strong>J.P. King Auction Company</strong>, selling premier real estate auctions nationwide and opening their Southwest regional office in Austin.</p>
+          <p>At <strong>Ritchie Bros</strong>, the world's largest industrial auctioneer, I helped develop their real estate auction division in the United States. I learned how to scale: systems, data, relentless process improvement.</p>
+          <p>In 2006, I came home to Nashville to build something of my own. <strong>McLemore Auction Company</strong> has now been running for nearly two decades. We do 350+ auctions a year, and I've become obsessed with using AI to automate the repetitive work so we can focus on what actually matters: understanding what people are selling, finding the right buyers, and getting the best price.</p>
+          <p class="quote">"Automate yourself before someone else does."</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Projects -->
+    <section class="section">
+      <h2>Projects</h2>
+      <div class="projects">
+        <a href="https://mclemoreauction.com" target="_blank" class="project">
+          <div class="project-icon">🔨</div>
+          <div class="project-info">
+            <div class="project-name">McLemore Auction Company</div>
+            <div class="project-desc">350+ auctions a year. Estates, equipment, real estate. Nashville since 2006.</div>
+          </div>
+          <span class="project-arrow">→</span>
+        </a>
+        <a href="https://sidetrack.fm" target="_blank" class="project">
+          <div class="project-icon">🎵</div>
+          <div class="project-info">
+            <div class="project-name">Sidetrack</div>
+            <div class="project-desc">Ambient music discovery that lives in your macOS menubar. Coming soon.</div>
+          </div>
+          <span class="project-arrow">→</span>
+        </a>
+        <a href="https://basreliefatlas.com" target="_blank" class="project">
+          <div class="project-icon">🏛️</div>
+          <div class="project-info">
+            <div class="project-name">Bas Relief Atlas</div>
+            <div class="project-desc">Mapping Neo-Assyrian bas-reliefs from Ashurnasirpal II's palace. Searchable database with Mapbox.</div>
+          </div>
+          <span class="project-arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Side Projects -->
+    <section class="section">
+      <h2>Side Projects</h2>
+      <div class="projects">
+        <a href="https://goiterawareness.org" target="_blank" class="project">
+          <div class="project-icon">🩺</div>
+          <div class="project-info">
+            <div class="project-name">Goiter Awareness</div>
+            <div class="project-desc">A public service. You're welcome.</div>
+          </div>
+          <span class="project-arrow">→</span>
+        </a>
+        <a href="https://spiritualismatyale.org" target="_blank" class="project">
+          <div class="project-icon">👻</div>
+          <div class="project-info">
+            <div class="project-name">Spiritualism at Yale</div>
+            <div class="project-desc">Because someone had to document it.</div>
+          </div>
+          <span class="project-arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- What I'm Working On -->
+    <section class="section">
+      <h2>What I'm Working On</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>AI for Auctions</h3>
+          <p>Building systems that write descriptions, research values, route customer inquiries, and handle the thousand small tasks that eat up an auctioneer's day.</p>
+        </div>
+        <div class="card">
+          <h3>Partnerships</h3>
+          <p>I like working with other auctioneers. If you have a sale that needs Nashville expertise or want to collaborate on something bigger, let's talk.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get in Touch -->
+    <section class="section">
+      <h2>Get in Touch</h2>
+      <div class="contact-links">
+        <a href="https://mclemoreauction.com" target="_blank" class="contact-link primary">
+          🏢 McLemore Auction ↗
+        </a>
+        <a href="https://linkedin.com/in/willmclemore" target="_blank" class="contact-link secondary">
+          💼 LinkedIn
+        </a>
+        <a href="mailto:will@mclemoreauction.com" class="contact-link secondary">
+          ✉️ Email
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 Will McLemore</span>
+      <span>Nashville, Tennessee</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
