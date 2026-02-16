@@ -104,31 +104,34 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold mb-8 text-center">The Path Here</h2>
             <div className="prose prose-slate dark:prose-invert prose-lg mx-auto">
               <p>
-                I studied English at Yale, which taught me to read carefully 
-                and write clearly—skills that turned out to matter more than 
-                anything else I learned.
+                I run{' '}
+                <a 
+                  href="https://mclemoreauction.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline no-underline"
+                >
+                  McLemore Auction Company
+                </a>
+                {' '}in Nashville — nearly two decades, 350+ auctions a year. 
+                I&apos;m obsessed with using AI and automation to eliminate the 
+                repetitive work so we can focus on what actually creates value: 
+                understanding what people are selling, finding the right buyers, 
+                and getting the best price.
               </p>
               <p>
-                After graduation, I got a taste of the auction world at{' '}
-                <strong>Sotheby&apos;s</strong> in New York. Then I spent five years 
-                at <strong>J.P. King Auction Company</strong>, selling premier 
-                real estate auctions nationwide and opening their Southwest 
-                regional office in Austin.
+                I built our platform from scratch. It handles everything from 
+                intake to invoicing, and I&apos;m pushing it further every day — 
+                AI-written descriptions, automated valuations, intelligent routing, 
+                and systems that handle the thousand small tasks that eat up an 
+                auctioneer&apos;s day.
               </p>
               <p>
-                At <strong>Ritchie Bros</strong>, the world&apos;s largest 
-                industrial auctioneer, I helped develop their real estate 
-                auction division in the United States. I learned how to scale: 
-                systems, data, relentless process improvement.
-              </p>
-              <p>
-                In 2006, I came home to Nashville to build something of my own.{' '}
-                <strong>McLemore Auction Company</strong> has now been running 
-                for nearly two decades. We do 350+ auctions a year, and I&apos;ve 
-                become obsessed with using AI to automate the repetitive work 
-                so we can focus on what actually matters: understanding what 
-                people are selling, finding the right buyers, and getting the 
-                best price.
+                Before Nashville, I worked at <strong>Ritchie Bros</strong> (world&apos;s 
+                largest industrial auctioneer), <strong>J.P. King Auction Company</strong>, 
+                and <strong>Sotheby&apos;s</strong>. I studied English at Yale, which 
+                taught me to read carefully and write clearly — turns out that 
+                matters more than most things.
               </p>
               <p className="text-slate-500 dark:text-slate-400 italic">
                 &ldquo;Automate yourself before someone else does.&rdquo;

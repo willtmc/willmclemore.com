@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
   const llmsTxt = `# Will McLemore
 
-> Yale grad who chose hammers over stethoscopes. Building the future of auctions through AI automation.
+> Auctioneer, builder, automator. Running McLemore Auction Company in Nashville — nearly two decades, 350+ auctions a year. Building AI systems to automate the auction business.
 
 This site contains blog posts and information about Will McLemore, founder of McLemore Auction Company.
 

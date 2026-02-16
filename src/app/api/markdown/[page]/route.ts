@@ -5,45 +5,30 @@ import { detectCrawler, logCrawlerHit } from '@/lib/crawler-tracking'
 const STATIC_PAGES: Record<string, { title: string; description: string; content: string }> = {
   about: {
     title: 'About Will McLemore',
-    description: 'From Yale to Sotheby\'s to building AI-powered auction systems. The story of an auctioneer who chose hammers over stethoscopes.',
+    description: 'Auctioneer, builder, automator. Nearly two decades running McLemore Auction Company in Nashville.',
     content: `# About Will McLemore
 
-Yale grad who chose hammers over stethoscopes. Building the future of auctions through AI automation.
+I run [McLemore Auction Company](https://mclemoreauction.com) in Nashville — nearly two decades, 350+ auctions a year. I'm obsessed with using AI and automation to eliminate the repetitive work so we can focus on what actually creates value: understanding what people are selling, finding the right buyers, and getting the best price.
 
-## The Origin Story
+I built our platform from scratch. It handles everything from intake to invoicing, and I'm pushing it further every day — AI-written descriptions, automated valuations, intelligent routing, and systems that handle the thousand small tasks that eat up an auctioneer's day.
 
-Born in Nashville, Tennessee, I grew up around the auction business thanks to my dad, who worked as a bankruptcy trustee. While he hoped I'd become a doctor, he took me to too many auctions when I was young. The energy, the strategy, the split-second decisions - I was hooked.
+Before Nashville, I worked at Ritchie Bros (world's largest industrial auctioneer), J.P. King Auction Company, and Sotheby's. I studied English at Yale, which taught me to read carefully and write clearly — turns out that matters more than most things.
 
-After graduating from Yale, I dove headfirst into the auction world instead of med school. Started at Sotheby's in New York City, dealing with million-dollar art pieces and learning the high-end auction game.
+*"Automate yourself before someone else does."*
 
-But I wanted to understand the full spectrum. So I moved to J.P. King Auction Company in Gadsden, Alabama, then to Richie Brothers Auctioneers - the world's largest heavy equipment auctioneer. From fine art to bulldozers, I've probably seen it all.
+## What I'm Working On
 
-In 2006, I founded McLemore Auction Company. Now, 18 years later, we've got six auction managers and handle everything from estate auctions to major real estate sales. But here's the kicker - I'm not content to just do things the old way.
+### AI for Auctions
+Building systems that write descriptions, research values, route customer inquiries, and handle the thousand small tasks that eat up an auctioneer's day.
 
-## Career Journey
-
-- **Yale University** - Graduated with plans that didn't include becoming an auctioneer
-- **Sotheby's, New York** - Started at the world's largest art auction house
-- **J.P. King & Richie Brothers** - Learned the full spectrum from art to heavy equipment
-- **McLemore Auction Company (2006-Present)** - Founded and built a thriving business with six auction managers
-- **AI Automation Focus (2024)** - Building custom CRM and automation systems
-
-## What Drives Me Now
-
-### AI Automation
-Building custom systems to automate auction processes. If my job's going to get automated, I want to be the one doing the automating. Currently developing CRM and project management tools specifically for the auction industry.
-
-### Strategic Partnerships
-Looking for joint ventures and partnerships to handle larger clients. Interested in connecting with like-minded business owners who are serious about using technology to scale.
-
-### Consulting & Advisory
-Available for consulting on AI tools integration, speaking engagements, and board positions. Also available for expert witness work in auction-related legal matters.
+### Partnerships
+I like working with other auctioneers. If you have a sale that needs Nashville expertise or want to collaborate on something bigger, let's talk.
 
 ## Beyond Business
 
 - **Reading** - Always looking for new perspectives and ideas
-- **Vizsla Dogs** - Proud owner of these amazing Hungarian hunting dogs
-- **Flat Picking Guitar** - Big fan of Tony Rice and the art of flat picking
+- **Vizsla Dogs** - Hungarian hunting dogs. As energetic as I am.
+- **Flat Picking Guitar** - Big fan of Tony Rice. Precision and timing.
 
 ## Contact
 
