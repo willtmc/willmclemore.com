@@ -135,7 +135,11 @@ LINKEDIN_API_KEY
 ### Repository Information
 - **GitHub**: https://github.com/willtmc/willmclemore.com
 - **Local Path**: /Users/willmclemore/wills_code/willmclemore.com
-- **Deployment**: Railway (auto-deploys from main branch)
+- **Deployment**: Static HTML on DigitalOcean droplet (104.131.182.220)
+- **Web root**: `/var/www/willmclemore.com/`
+- **Source**: `static/index.html` → rsync to droplet
+- **Nginx**: `/etc/nginx/sites-available/willmclemore.com`
+- **SSL**: Certbot
 
 ### Database Models Ready for Use
 All these Prisma models exist and are ready:
