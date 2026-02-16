@@ -158,6 +158,23 @@ export default function HomePage() {
                   something bigger, let&apos;s talk.
                 </p>
               </div>
+              <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-800/50 md:col-span-2">
+                <h3 className="font-semibold mb-2">
+                  <a 
+                    href="https://nashvillemoment.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    Nashville Moment
+                  </a>
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">
+                  A timeline of interesting things that happened in Nashville — 
+                  cholera epidemics, reservoir collapses, infamous statues, 
+                  and the stories behind them. Every city has its moments.
+                </p>
+              </div>
             </div>
           </div>
         </section>
